@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Courtev</title>
+    <!-- 
+        This is the <head> section of the HTML document.
+        It contains metadata, the title of the page, links to CSS files, and links to JavaScript files.
+        The title "Courtev" will appear in the browser tab.
+    -->
+    <link rel="stylesheet" href="Courtev.css">
+    <!-- Linking external CSS file for styling the page. 
+         All styles for fonts, colors, layout, and positioning are defined there. -->
+    <script src="CourtevJs.js"></script>
+    <!-- Linking external JavaScript file.
+         This file contains all the interactive functionality for the page,
+         like form validation, button actions, dialog handling, and dynamic content updates. -->
+</head>
+
+<body>
+
+    <!--
+        Split loader section
+        This appears when the page is loading.
+        It consists of two halves that animate to indicate loading progress.
+        The left-half and right-half divs are animated via CSS to create a visual effect.
+    -->
+    <div id="split-loader">
+        <div class="half left-half"></div>
+        <div class="half right-half"></div>
+    </div>
+
+    <!--
+        Main content area
+        Everything visible to the user will appear inside this div.
+        It is positioned over the animated background created by VANTA.js.
+    -->
+    <div id="main-content">
+
+        <!-- VANTA.js animated globe background -->
+        <div id="vanta-bg"></div>
+        <script src="three.r134.min.js"></script>
+        <!-- Three.js library required for VANTA.js animations -->
+        <script src="vanta.globe.min.js"></script>
+        <!-- VANTA.js Globe animation script -->
+        <script>
+            // Initialize the VANTA Globe background effect
+            // This creates an interactive 3D animated globe on the page
+            VANTA.GLOBE({
+                el: "#vanta-bg",      // Target element for the animation
+                mouseControls: true,  // Allows user to interact with globe using mouse
+                touchControls: true,  // Allows user to interact using touch (mobile)
+                gyroControls: false,  // Disables gyro controls for mobile
+                minHeight: 200.00,    // Minimum height for the animation to display
+                minWidth: 200.00,     // Minimum width
+                scale: 1.00,          // Scale factor for desktop
+                scaleMobile: 1.00,    // Scale factor for mobile
+                backgroundColor: 0xcacaca  // Background color behind the globe
+            });
+        </script>
+
+        <!--
+            Content overlay on top of the VANTA background.
+            This div uses absolute positioning to cover the whole screen and provide padding.
+            All the forms, tables, images, and text will appear inside this area.
+        -->
+        <div id="content-area" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box;">
+
+            <!--
+                Main layout table that divides the page into two columns:
+                - Left column (65% width) for the main forms and content
+                - Right column (35% width) for court selection options
+                This table is transparent so the animated background remains visible.
+            -->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: transparent;">
+                <tr valign="top">
+
+                    <!-- Left column for personal information, court selection forms, and notes -->
+                    <td width="65%">
+
+                        <!-- Logo and welcome text -->
+                        <img id="logo" src="logo.png" style="max-width: 400px; display: block;">
+                        <!-- Logo image of the website -->
+                        <br>
+                        <h2>Welcome to the Sports Arena!</h2>
+                        <!-- Main heading greeting the user -->
+                        <p>Here you can set a schedule for your favorite sport anytime anywhere</p>
+                        <!-- Paragraph explaining the purpose of the website -->
+                        <br>
+
+                        <!-- Form table containing all input sections -->
+                        <table border="0" cellpadding="5" cellspacing="0">
+
+                            <!-- Personal details section -->
+                            <tr>
+                                <td colspan="2">
+                                    <h4 id="h4Id" style="margin-bottom: 5px;">personal details:</h4>
+                                </td>
+                            </tr>
+                            <form id="PersonalF">
+                                <!-- Each row contains a label and an input field for the user -->
+                                <tr>
+                                    <td>First name:</td>
+                                    <td><input type="text" maxlength="10" id="fname" value=""></td>
+                                </tr>
+                                <tr>
+                                    <td>Last name:</td>
+                                    <td><input type="text" maxlength="10" id="lname" value=""></td>
+                                </tr>
+                                <tr>
+                                    <td>Phone number:</td>
+                                    <td><input type="text" maxlength="10" id="PNumber" value=""></td>
+                                </tr>
+                                <tr>
+                                    <td>Id:</td>
+                                    <td><input type="text" maxlength="9" id="Id" value=""></td>
+                                </tr>
+                                <tr>
+                                    <td>Address:</td>
+                                    <td><input type="text" maxlength="12" id="Address" value=""></td>
+                                </tr>
+                            </form>
+
+                            <!-- Court details section -->
+                            <tr>
+                                <td colspan="2">
+                                    <h4 id="h4CourtDetail" style="margin-bottom: 5px; margin-top: 10px;">Court details:</h4>
+                                </td>
+                            </tr>
+                            <form id="CourtF">
+                                <tr>
+                                    <td>City:</td>
+                                    <td>
+                                        <!-- Dropdown select for choosing the city of the court -->
+                                        <select id="city" name="Choose City">
+                                            <option value="Mazraa">Mazraa</option>
+                                            <option value="Furedes">Furedes</option>
+                                            <option value="Sakhnin">Sakhnin</option>
+                                            <option value="Deir el Asad">Deir el Asad</option>
+                                            <option value="Karmiel">Karmiel</option>
+                                            <option value="Acre">Acre</option>
+                                            <option value="Nahariya">Nahariya</option>
+                                            <option value="Haifa">Haifa</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </form>
+
+                            <!-- Dates section for scheduling -->
+                            <tr>
+                                <td colspan="2">
+                                    <h4 id="Dates" style="margin-bottom: 5px; margin-top: 10px;">Dates:</h4>
+                                </td>
+                            </tr>
+                            <form id="DatesF">
+                                <tr>
+                                    <td><label for="schedule-date">Date:</label></td>
+                                    <td><input type="date" id="schedule-date" name="schedule-date"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="alarm-timeF">Playing time From:</label></td>
+                                    <td><input type="time" id="alarm-timeF" name="alarm-time to start" min="0" max="23" value="00"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="alarm-timeT">To:</label></td>
+                                    <td><input type="time" id="alarm-timeT" name="alarm-time to finish"></td>
+                                </tr>
+                            </form>
+                        </table>
+
+                        <br>
+
+                        <!-- Payment section with dialog modals -->
+                        <form id="Visa">
+                            <button type="button" onclick="checkValidation()">Insert Card details</button>
+
+                            <!-- Payment dialog box where user enters card details -->
+                            <dialog id="paymentModal">
+                                <h3>Enter Card Details</h3>
+                                <form method="dialog">
+                                    <input id="CardNum" type="text" placeholder="Card Number" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required><br><br>
+                                    <input id="DateMonth" type="month" placeholder="MM/YY" style="width: 40%">
+                                    <input id="CVV" type="text" placeholder="CVV" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')" style="width: 40%"><br>
+                                    <span id="price"></span><br>
+                                    <button class="btn-pay" type="button" onclick="paymentConfirmation()">Confirm Payment</button>
+                                    <button class="btn-close" type="button" onclick="closePaymentWindow()">Cancel</button>
+                                </form>
+                            </dialog>
+
+                            <!-- Notification dialog for errors -->
+                            <dialog id="notificationModal">
+                                <h3 id="Error">Error!</h3>
+                                <p id="notificationMessage"></p>
+                                <button onclick="closeNotificationWindow()">Dismiss</button>
+                            </dialog>
+
+                            <!-- Success dialog for successful operations -->
+                            <dialog id="successModal">
+                                <h3 id="success">Success!</h3>
+                                <p id="successMessage"></p>
+                                <button class="c-click" onclick="closeSuccessWindow()">Close</button>
+                            </dialog>
+                        </form>
+
+                        <br>
+                        <!-- Textarea for entering notes or comments -->
+                        <textarea name="textarea" id="Notes" placeholder="Enter your notes " rows="3" cols="30"></textarea>
+                        <br><br>
+                        <!-- Button to clear the entire form -->
+                        <button type="button" onclick="cleanForm()">Clear form</button>
+                        <p id="res"></p>
+                    </td>
+
+                    <!-- Right column: selection of sport courts -->
+                    <td width="35%" style="padding-top: 50px; padding-left: 20px;">
+                        <div id="Pick">
+                            <h4 id="PickACourt">Pick a Court:</h4>
+                            <table border="0" cellspacing="5">
+                                <!-- Each row is a radio button option for a sport and its price -->
+                                <tr>
+                                    <td><input type="radio" id="football" name="sport" value="football"></td>
+                                    <td>Football -> Price per hour: 300₪</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="basketball" name="sport" value="basketball"></td>
+                                    <td>Basketball -> Price per hour: 240₪</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="VallyBall" name="sport" value="VallyBall"></td>
+                                    <td>Volleyball -> Price per hour: 180₪</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="radio" id="Tennis" name="sport" value="Tennis"></td>
+                                    <td>Tennis -> Price per hour: 120₪</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+</body>
+</html>

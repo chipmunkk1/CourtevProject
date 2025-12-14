@@ -1,0 +1,182 @@
+/* ------------------------------------------------------------------------------------ */
+/* SPLIT SCREEN LOADER STYLES: Full screen loader that splits into two halves           */
+/* ------------------------------------------------------------------------------------ */
+
+/* The container for the split-screen loader */
+#split-loader {
+    position: fixed;       /* Fix the loader relative to the viewport */
+    top: 0;                /* Start from top of screen */
+    left: 0;               /* Start from left of screen */
+    width: 100%;           /* Cover full screen width */
+    height: 100%;          /* Cover full screen height */
+    z-index: 9999;         /* Make sure it is above all other elements */
+    pointer-events: none;  /* Disable clicking on the loader */
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* The two halves of the loader - left and right                                         */
+/* ------------------------------------------------------------------------------------ */
+.half {
+    position: absolute;    /* Position relative to #split-loader */
+    top: 0;                /* Align top */
+    width: 50%;            /* Each half takes 50% width */
+    height: 100%;          /* Full height */
+    
+    /* Background image for loader. It spans across both halves */
+    background-image: url('vector-green-soccer-field-football-field-gridiron_1284-41290.avif');
+    
+    /* Background size is 200% because the container is only 50% wide */
+    /* This ensures the image covers both halves seamlessly */
+    background-size: 200% 100%; 
+    
+    /* Animate the movement when loader is dismissed */
+    transition: transform 1.5s ease-in-out;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* LEFT HALF POSITIONING                                                                  */
+/* ------------------------------------------------------------------------------------ */
+.half.left-half {
+    left: 0;                /* Align left edge of container */
+    background-position: 0%; /* Show left side of image */
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* RIGHT HALF POSITIONING                                                                 */
+/* ------------------------------------------------------------------------------------ */
+.right-half {
+    right: 0;               /* Align right edge of container */
+    background-position: 100%; /* Show right side of image */
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* ANIMATION WHEN LOADER IS REMOVED                                                      */
+/* ------------------------------------------------------------------------------------ */
+/* Move left half completely to the left when loader is loaded */
+#split-loader.loaded .left-half {
+    transform: translateX(-100%);
+}
+
+/* Move right half completely to the right when loader is loaded */
+#split-loader.loaded .right-half {
+    transform: translateX(100%);
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* MAIN CONTENT STYLES: Initially hidden and fade in                                     */
+/* ------------------------------------------------------------------------------------ */
+#main-content {
+    opacity: 0;                  /* Hidden at start */
+    transition: opacity 1.5s ease-in-out; /* Smooth fade-in effect */
+}
+
+/* Make main content visible when loader finishes */
+#main-content.visible {
+    opacity: 1;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* VANTA BACKGROUND                                                                       */
+/* ------------------------------------------------------------------------------------ */
+#vanta-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;  /* Stay behind all content */
+    top: 0;
+    left: 0;
+    z-index: -1;      /* Ensure background is behind everything else */
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* LOGO AND FORM INPUTS                                                                    */
+/* ------------------------------------------------------------------------------------ */
+#logo {
+    margin-top: auto;
+    width: 700px;      /* Fixed width for logo */
+    height: 200px;     /* Fixed height for logo */
+}
+
+/* Set fixed width for personal details inputs */
+#fname, #lname, #Address {
+    width: 100px;
+}
+#PNumber {
+    width: 80px;
+}
+#Id {
+    width: 70px;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* RADIO BUTTON MARGINS FOR SPORTS SELECTION                                             */
+/* ------------------------------------------------------------------------------------ */
+#football, #basketball, #VallyBall, #Tennis {
+    margin-left: 50px; /* Offset the radio buttons from left edge */
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* DIALOG STYLES FOR MODALS (Payment, Notification)                                       */
+/* ------------------------------------------------------------------------------------ */
+dialog {
+    background-color: rgb(207, 204, 204);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    padding: 20px;
+    text-align: center;
+    width: 400px;       /* Fixed width */
+}
+
+/* Dark transparent backdrop behind modal */
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Button styles */
+.btn-pay {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+.btn-close {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    width: 100%;
+}
+
+/* Error and success text inside modals */
+#Error {
+    color: red;
+    border: none;
+    padding: 5px;
+    margin-top: 5px;
+    width: 100%;
+}
+#success {
+    color: green;
+    border: none;
+    padding: 5px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* CONTENT AREA POSITIONING                                                               */
+/* ------------------------------------------------------------------------------------ */
+#content-area {
+    left: 700px;
+    position: absolute;
+}
+
+#left {
+    left: 500px;
+    top: 100px;
+}
