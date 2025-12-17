@@ -283,3 +283,12 @@ function cleanForm() {
     document.getElementById('res').innerHTML = '';
     document.getElementById('Notes').value = '';
 }
+
+//this function changes the URL inside the Iframe via 
+//which radio we are pressing
+function ChangeSite(newUrl){
+    var myIframe=document.getElementById('Frame');
+    myIframe.src =newUrl;
+    myIframe.style.display = "block";
+
+}
