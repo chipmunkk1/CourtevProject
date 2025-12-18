@@ -192,3 +192,10 @@ dialog::backdrop {
     z-index: 9999;
     display: none;
 }
+#MainTable
+{
+width: 100% ;
+border:0 ;
+border-spacing: 0;   
+    background-color: transparent;
+}
