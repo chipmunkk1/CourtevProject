@@ -1,42 +1,90 @@
 // ***Presentation Tier***
 //   contains only UI components and visual design, without business or data logic    //
 
-
 // Wait until the entire page has loaded before running the code
 window.addEventListener('load', function () {
-
-    // 1. Get references to the loader and main content elements
-    // The loader is the split curtain that shows when the page is loading
-    // The content is the main div that contains all visible page content
     var loader = document.getElementById('split-loader');
     var content = document.getElementById('main-content');
-
-    // 2. Delay for a short time (500ms) before triggering the animations
-    // This gives the user a smooth transition from loader to content
+    
     setTimeout(function () {
-        loader.classList.add('loaded'); // Moves the split curtains apart
-        content.classList.add('visible'); // Fades the main content into view
+        loader.classList.add('loaded');
+        content.classList.add('visible');
     }, 500);
 
-    // 3. Optional cleanup: hide the loader completely after animation finishes (2 seconds)
     setTimeout(function () {
-        loader.style.display = 'none'; // Remove loader from layout
+        loader.style.display = 'none';
     }, 2000);
 });
 
 // Initialize the VANTA Globe background effect
-// This creates an interactive 3D animated globe on the page
 document.addEventListener("DOMContentLoaded", () => {
     VANTA.GLOBE({
         el: "#vanta-bg",
-        mouseControls: false,
+        mouseControls: true,
         touchControls: true,
-        gyroControls: false,  // Disables gyro controls for mobile
-        minHeight: 200.00,    // Minimum height for the animation to display
-        minWidth: 200.00,     // Minimum width
-        scale: 1.00,          // Scale factor for desktop
-        scaleMobile: 1.00,    // Scale factor for mobile
-        backgroundColor: 0xcacaca  // Background color behind the globe
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        backgroundColor: 0xcacaca
     });
 });
 
+// --- Page Navigation Functions ---
+
+// Switch from Page 1 to Page 2
+function goToReservation() {
+    document.getElementById('page-personal').classList.add('hidden');
+    document.getElementById('page-reservation').classList.remove('hidden');
+}
+
+// Switch from Page 2 back to Page 1
+function goBackToPersonal() {
+    document.getElementById('page-reservation').classList.add('hidden');
+    document.getElementById('page-personal').classList.remove('hidden');
+    document.getElementById('Frame').style.display = 'none'; // Hide iframe
+}
+
+// Switch to Confirmation Page
+function showConfirmationPage() {
+    document.getElementById('page-reservation').classList.add('hidden');
+    document.getElementById('Frame').style.display = 'none';
+    document.getElementById('page-confirmation').classList.remove('hidden');
+}
+
+// --- Iframe / External Site Functions ---
+
+function ChangeSite(newUrl){
+    var myIframe=document.getElementById('Frame');
+    myIframe.src = newUrl;
+    myIframe.style.display = "block";
+}
+
+// --- Modal / Dialog Functions ---
+
+function showMessage(message) {
+    document.getElementById('notificationMessage').textContent = message;
+    document.getElementById('notificationModal').showModal();
+}
+
+function showSuccessMessage(message) {
+    document.getElementById('successMessage').textContent = message;
+    document.getElementById('successModal').showModal();
+}
+
+function closeNotificationWindow() {
+    document.getElementById('notificationModal').close();
+}
+
+function closeSuccessWindow() {
+    document.getElementById('successModal').close();
+}
+
+function openPaymentWindow() {
+    document.getElementById('paymentModal').showModal();
+}
+
+function closePaymentWindow() {
+    document.getElementById('paymentModal').close();
+}

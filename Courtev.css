@@ -1,242 +1,112 @@
 /* ------------------------------------------------------------------------------------ */
-/* SPLIT SCREEN LOADER STYLES: Full screen loader that splits into two halves           */
+/* UTILITY & PAGE TRANSITIONS                                                           */
 /* ------------------------------------------------------------------------------------ */
+.hidden {
+    display: none !important;
+}
+.page-section {
+    animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
-/* The container for the split-screen loader */
+/* ------------------------------------------------------------------------------------ */
+/* BUTTONS                                                                              */
+/* ------------------------------------------------------------------------------------ */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------------------------------------ */
+/* SPLIT SCREEN LOADER STYLES                                                           */
+/* ------------------------------------------------------------------------------------ */
 #split-loader {
-    position: fixed;       /* Fix the loader relative to the viewport */
-    top: 0;                /* Start from top of screen */
-    left: 0;               /* Start from left of screen */
-    width: 100%;           /* Cover full screen width */
-    height: 100%;          /* Cover full screen height */
-    z-index: 9999;         /* Make sure it is above all other elements */
-    pointer-events: none;  /* Disable clicking on the loader */
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; pointer-events: auto;
 }
-
-/* ------------------------------------------------------------------------------------ */
-/* The two halves of the loader - left and right                                         */
-/* ------------------------------------------------------------------------------------ */
 .half {
-    position: absolute;    /* Position relative to #split-loader */
-    top: 0;                /* Align top */
-    width: 50%;            /* Each half takes 50% width */
-    height: 100%;          /* Full height */
-    
-    /* Background image for loader. It spans across both halves */
+    position: absolute; top: 0; width: 50%; height: 100%;
     background-image: url('vector-green-soccer-field-football-field-gridiron_1284-41290.avif');
-    
-    /* Background size is 200% because the container is only 50% wide */
-    /* This ensures the image covers both halves seamlessly */
-    background-size: 200% 100%; 
-    
-    /* Animate the movement when loader is dismissed */
-    transition: transform 1.5s ease-in-out;
+    background-size: 200% 100%; transition: transform 1.5s ease-in-out;
+}
+.half.left-half { left: 0; background-position: 0%; }
+.right-half { right: 0; background-position: 100%; }
+#split-loader.loaded .left-half { transform: translateX(-100%); }
+#split-loader.loaded .right-half { transform: translateX(100%); }
+
+/* ------------------------------------------------------------------------------------ */
+/* MAIN CONTENT STYLES                                                                  */
+/* ------------------------------------------------------------------------------------ */
+#main-content { opacity: 0; transition: opacity 1.5s ease-in-out; }
+#main-content.visible { opacity: 1; }
+
+#vanta-bg { width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
+
+#content-area { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; 
 }
 
 /* ------------------------------------------------------------------------------------ */
-/* LEFT HALF POSITIONING                                                                  */
+/* FORM INPUTS & TABLES                                                                 */
 /* ------------------------------------------------------------------------------------ */
-.half.left-half {
-    left: 0;                /* Align left edge of container */
-    background-position: 0%; /* Show left side of image */
+#fname, #lname, #Address { width: 150px; }
+#PNumber { width: 100px; }
+#Id { width: 90px; }
+
+#Content-Table {
+    margin: 0 auto; background: rgba(255,255,255,0.8); padding: 20px; border-radius: 10px;
 }
 
 /* ------------------------------------------------------------------------------------ */
-/* RIGHT HALF POSITIONING                                                                 */
-/* ------------------------------------------------------------------------------------ */
-.right-half {
-    right: 0;               /* Align right edge of container */
-    background-position: 100%; /* Show right side of image */
-}
-
-/* ------------------------------------------------------------------------------------ */
-/* ANIMATION WHEN LOADER IS REMOVED                                                      */
-/* ------------------------------------------------------------------------------------ */
-/* Move left half completely to the left when loader is loaded */
-#split-loader.loaded .left-half {
-    transform: translateX(-100%);
-}
-
-/* Move right half completely to the right when loader is loaded */
-#split-loader.loaded .right-half {
-    transform: translateX(100%);
-}
-
-/* ------------------------------------------------------------------------------------ */
-/* MAIN CONTENT STYLES: Initially hidden and fade in                                     */
-/* ------------------------------------------------------------------------------------ */
-#main-content {
-    opacity: 0;                  /* Hidden at start */
-    transition: opacity 1.5s ease-in-out; /* Smooth fade-in effect */
-}
-
-/* Make main content visible when loader finishes */
-#main-content.visible {
-    opacity: 1;
-}
-
-/* ------------------------------------------------------------------------------------ */
-/* VANTA BACKGROUND                                                                       */
-/* ------------------------------------------------------------------------------------ */
-#vanta-bg {
-    width: 100%;
-    height: 100%;
-    position: fixed;  /* Stay behind all content */
-    top: 0;
-    left: 0;
-    z-index: -1;      /* Ensure background is behind everything else */
-}
-
-/* ------------------------------------------------------------------------------------ */
-/* LOGO AND FORM INPUTS                                                                    */
-/* ------------------------------------------------------------------------------------ */
-#logo {
-    
-    display: block;
-    margin-top: auto;
-    width: 700px;      /* Fixed width for logo */
-    height: 200px;     /* Fixed height for logo */
-}
-
-/* Set fixed width for personal details inputs */
-#fname, #lname, #Address {
-    width: 100px;
-}
-#PNumber {
-    width: 80px;
-}
-#Id {
-    width: 70px;
-}
-
-/* ------------------------------------------------------------------------------------ */
-/* RADIO BUTTON MARGINS FOR SPORTS SELECTION                                             */
-/* ------------------------------------------------------------------------------------ */
-#football, #basketball, #VallyBall, #Tennis {
-    margin-left: 50px; /* Offset the radio buttons from left edge */
-}
-
-/* ------------------------------------------------------------------------------------ */
-/* DIALOG STYLES FOR MODALS (Payment, Notification)                                       */
+/* DIALOGS / MODALS                                                                     */
 /* ------------------------------------------------------------------------------------ */
 dialog {
-    background-color: rgb(207, 204, 204);
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    padding: 20px;
-    text-align: center;
-    width: 400px;       /* Fixed width */
+    background-color: rgb(207, 204, 204); border: none; border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5); padding: 20px; text-align: center; width: 400px;
 }
+dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
 
-/* Dark transparent backdrop behind modal */
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-/* Button styles */
-.btn-pay {
-    background-color: green;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-}
-.btn-close {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    margin-top: 5px;
-    width: 100%;
-}
-
-/* Error and success text inside modals */
-#Error {
-    color: red;
-    border: none;
-    padding: 5px;
-    margin-top: 5px;
-    width: 100%;
-}
-#success {
-    color: green;
-    border: none;
-    padding: 5px;
-    margin-top: 5px;
-    width: 100%;
-}
+.btn-pay { background-color: green; color: white; padding: 10px; border: none; cursor: pointer; margin-top: 10px; width: 100%; }
+.btn-close { background-color: red; color: white; border: none; padding: 5px; cursor: pointer; margin-top: 5px; width: 100%; }
+#Error { color: red; }
+#success { color: green; }
 
 /* ------------------------------------------------------------------------------------ */
-/* CONTENT AREA POSITIONING                                                               */
+/* HEADER & LOGO                                                                        */
 /* ------------------------------------------------------------------------------------ */
-#content-area {
-    left: 700px;
-    position: absolute;
+#global-header {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin-bottom: 20px; position: relative; z-index: 10;
 }
+#logo { max-width: 300px; height: auto; display: block; }
+#global-header h2 { margin-top: 10px; text-align: center; }
 
-#left {
-    left: 500px;
-    top: 100px;
-}
-
-
-#Frame{
-    position: absolute;
-    top: 70%;  
-    left: 70%;
-    width: 800px;
-    height: 400px;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    display: none;
-}
-#MainTable
-{
-width: 100% ;
-border:0 ;
-border-spacing: 0;   
-    background-color: transparent;
-}
-#content-area
-{
-
-    position: absolute;
-    top: 0; 
-    left: 0;
-     width: 100%;
-      height: 100%; 
-      padding: 20px; 
-      box-sizing: border-box;
-}
-#DateMonth
-{
-  width: 40%
-}
-
-#CVV
-{
-  width: 40%
-}
-#Right-column
-{
-    width: 35%;
-    padding-top: 50px;
-     padding-left: 20px;
-}
-#h4CourtDetail
-{
-
-    margin-top: 10px;
-    margin-bottom:10px;
-}
-
-#Dates
-{
-
-    margin-top: 10px;
-    margin-bottom:10px;
+/* ------------------------------------------------------------------------------------ */
+/* IFRAME & MISC                                                                        */
+/* ------------------------------------------------------------------------------------ */
+#Frame {
+    position: absolute; top: 70%; left: 70%; width: 400px; height: 200px;
+    transform: translate(-50%, -50%); z-index: 9999; display: none;
+    border: 5px solid white; box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
