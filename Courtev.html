@@ -57,7 +57,7 @@
             This div uses absolute positioning to cover the whole screen and provide padding.
             All the forms, tables, images, and text will appear inside this area.
         -->
-        <div id="content-area" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box;">
+        <div id="content-area">
 
             <!--
                 Main layout table that divides the page into two columns:
@@ -72,7 +72,7 @@
                     <td width="65%">
 
                         <!-- Logo and welcome text -->
-                        <img id="logo" src="logo.png" style="max-width: 400px; display: block;">
+                        <img id="logo" src="logo.png">
                         <!-- Logo image of the website -->
                         <br>
                         <h2>Welcome to the Sports Arena!</h2>
@@ -87,7 +87,7 @@
                             <!-- Personal details section -->
                             <tr>
                                 <td colspan="2">
-                                    <h4 id="h4Id" style="margin-bottom: 5px;">personal details:</h4>
+                                    <h4 id="h4Id" >personal details:</h4>
                                 </td>
                             </tr>
                             <form id="PersonalF">
@@ -117,7 +117,7 @@
                             <!-- Court details section -->
                             <tr>
                                 <td colspan="2">
-                                    <h4 id="h4CourtDetail" style="margin-bottom: 5px; margin-top: 10px;">Court details:</h4>
+                                    <h4 id="h4CourtDetail" >Court details:</h4>
                                 </td>
                             </tr>
                             <form id="CourtF">
@@ -142,7 +142,7 @@
                             <!-- Dates section for scheduling -->
                             <tr>
                                 <td colspan="2">
-                                    <h4 id="Dates" style="margin-bottom: 5px; margin-top: 10px;">Dates:</h4>
+                                    <h4 id="Dates" >Dates:</h4>
                                 </td>
                             </tr>
                             <form id="DatesF">
@@ -172,8 +172,8 @@
                                 <h3>Enter Card Details</h3>
                                 <form method="dialog">
                                     <input id="CardNum" type="text" placeholder="Card Number" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required><br><br>
-                                    <input id="DateMonth" type="month" placeholder="MM/YY" style="width: 40%">
-                                    <input id="CVV" type="text" placeholder="CVV" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')" style="width: 40%"><br>
+                                    <input id="DateMonth" type="month" placeholder="MM/YY" >
+                                    <input id="CVV" type="text" placeholder="CVV" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')"><br>
                                     <span id="price"></span><br>
                                     <button class="btn-pay" type="button" onclick="paymentConfirmation()">Confirm Payment</button>
                                     <button class="btn-close" type="button" onclick="closePaymentWindow()">Cancel</button>
@@ -208,7 +208,7 @@
                     </td>
 
                     <!-- Right column: selection of sport courts -->
-                    <td width="35%" style="padding-top: 50px; padding-left: 20px;">
+                    <td id="Right-column" >
                         <div id="Pick">
                             <h4 id="PickACourt">Pick a Court:</h4>
                             <table border="0" cellspacing="5">
