@@ -10,11 +10,19 @@
     -->
     <link rel="stylesheet" href="Courtev.css">
     <!-- Linking external CSS file for styling the page. 
-         All styles for fonts, colors, layout, and positioning are defined there. -->
-    <script src="CourtevJs.js"></script>
+    All styles for fonts, colors, layout, and positioning are defined there. -->
+
+    <!--*** Linking - DataAccess/Business Logic/Presentation Tiers ***-->
+    <script src="DataAccess.js"></script>
+    <script src="Logic.js"></script>
     <!-- Linking external JavaScript file.
          This file contains all the interactive functionality for the page,
          like form validation, button actions, dialog handling, and dynamic content updates. -->
+    <script src="three.r134.min.js"></script>
+    <!-- Three.js library required for VANTA.js animations -->
+    <script src="vanta.globe.min.js"></script>
+    <!-- VANTA.js Globe animation script -->
+     <script src="Presentation.js"></script>
 </head>
 
 <body>
@@ -43,26 +51,7 @@
 
         <!-- VANTA.js animated globe background -->
         <div id="vanta-bg"></div>
-        <script src="three.r134.min.js"></script>
-        <!-- Three.js library required for VANTA.js animations -->
-        <script src="vanta.globe.min.js"></script>
-        <!-- VANTA.js Globe animation script -->
-        <script>
-            // Initialize the VANTA Globe background effect
-            // This creates an interactive 3D animated globe on the page
-            VANTA.GLOBE({
-                el: "#vanta-bg",      // Target element for the animation
-                mouseControls: true,  // Allows user to interact with globe using mouse
-                touchControls: true,  // Allows user to interact using touch (mobile)
-                gyroControls: false,  // Disables gyro controls for mobile
-                minHeight: 200.00,    // Minimum height for the animation to display
-                minWidth: 200.00,     // Minimum width
-                scale: 1.00,          // Scale factor for desktop
-                scaleMobile: 1.00,    // Scale factor for mobile
-                backgroundColor: 0xcacaca  // Background color behind the globe
-            });
-        </script>
-
+       
         <!--
             Content overlay on top of the VANTA background.
             This div uses absolute positioning to cover the whole screen and provide padding.
@@ -211,7 +200,10 @@
                         <textarea name="textarea" id="Notes" placeholder="Enter your notes " rows="3" cols="30"></textarea>
                         <br><br>
                         <!-- Button to clear the entire form -->
-                        <button type="button" onclick="cleanForm()">Clear form</button>
+                        <button type="button" onclick="cleanForm()">Clear form</button></br></br>
+                        Id to remove: <input type="text" id="removeId" name="removeId" maxlength="9">
+                        <button type="button" onclick="removeIdFunc()">Cancel reservation</button></br></br>
+                        <button type="button" onclick="getAllReservations()">Show All Reservations</button></br></br>
                         <p id="res"></p>
                     </td>
 

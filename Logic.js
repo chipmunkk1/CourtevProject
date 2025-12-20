@@ -1,24 +1,4 @@
-// Wait until the entire page has loaded before running the code
-window.addEventListener('load', function () {
-
-    // 1. Get references to the loader and main content elements
-    // The loader is the split curtain that shows when the page is loading
-    // The content is the main div that contains all visible page content
-    var loader = document.getElementById('split-loader');
-    var content = document.getElementById('main-content');
-
-    // 2. Delay for a short time (500ms) before triggering the animations
-    // This gives the user a smooth transition from loader to content
-    setTimeout(function () {
-        loader.classList.add('loaded'); // Moves the split curtains apart
-        content.classList.add('visible'); // Fades the main content into view
-    }, 500);
-
-    // 3. Optional cleanup: hide the loader completely after animation finishes (2 seconds)
-    setTimeout(function () {
-        loader.style.display = 'none'; // Remove loader from layout
-    }, 2000);
-});
+// ***Business Logic Tier - logic related to the presentation tier***//
 
 // ------------------------------------------------------------------------------------
 // Notification functions
@@ -66,9 +46,14 @@ function paymentConfirmation() {
 
     // Retrieve all necessary inputs from the payment form
     var date = document.getElementById("DateMonth").value;
-    var city = document.getElementById("city").value;
+    var courtCity = document.getElementById("city").value;
     var cvv = document.getElementById("CVV").value;
     var CardNum = document.getElementById("CardNum").value;
+    var address = document.getElementById("Address").value;    
+    var notice = document.getElementById('Notes').value;
+    var id = document.getElementById('Id').value.trim();
+    var pnumber = document.getElementById('PNumber').value.trim();
+
 
     // Validate card number
     if (CardNum == "" || CardNum.length < 16) {
@@ -119,15 +104,22 @@ function paymentConfirmation() {
     var date = document.getElementById("schedule-date").value;
     var timeFrom = document.getElementById("alarm-timeF").value;
     var timeTo = document.getElementById("alarm-timeT").value;
+    var notice = document.getElementById('Notes').value.trim();
+
 
     // Show success message and close payment modal
     showSuccessMessage("Payment confirmed! Your court booking is complete. You can see your reservation detail at the end of the page.");
     closePaymentWindow();
 
     // Display booking summary in the page
-    var textForDisplay = "Hello " + fname + ' ' + lname + "</br>You have successfully reserved a " + selectedItem + " Field in " + city + " city";
-    textForDisplay += "</br>In: " + date + "</br>Time: from " + timeFrom + " to " + timeTo + "</br>Thank you for booking with us. Have fun! ";
+    var textForDisplay = "Hello " + fname + ' ' + lname + "</br>You have successfully reserved a " + selectedItem + " Field in " + courtCity + " city";
+    textForDisplay += "</br>In: " + date + "</br>Time: from " + timeFrom + " to " + timeTo + "</br>Your notice is: " + notice;
+    textForDisplay += "</br>Thank you for booking with us. Have fun! ";
     document.getElementById('res').innerHTML = textForDisplay;
+
+    // Save reservation info to localStorage
+    processInfo(id, fname, lname, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice);
+
 }
 
 // ------------------------------------------------------------------------------------
@@ -186,7 +178,7 @@ function checkValidation() {
         showMessage("Invalid phone number: must be 10 digits only");
         return;
     }
-
+    
     // Check ID format
     if (!idRegex.test(id)) {
         showMessage("Invalid ID: must be 9 digits only");
@@ -282,6 +274,70 @@ function cleanForm() {
     // Clear result display and notes
     document.getElementById('res').innerHTML = '';
     document.getElementById('Notes').value = '';
+}
+
+// Display all reservations stored in localStorage
+function getAllReservations(){
+
+    // Get all reservations as a 2D array from Data Access tier
+	var clientsTable = getBookersDb();
+
+    // This string will hold the HTML output
+	var textPrint = '';
+
+    // Loop over all reservations
+	for(i = 0; i < clientsTable.length; i++){
+
+        // Current reservation row
+		var client = clientsTable[i];
+
+        // Build full name from first and last name
+		var fullName = client[1] + ' ' + client[2];
+
+        // Print reservation details in a readable format
+        textPrint += '<b>ID:</b> ' + client[0] + '</br>';
+        textPrint += '<b>Name:</b> ' + fullName + '</br>';
+        textPrint += '<b>Court:</b> ' + client[6] + '</br>';
+        textPrint += '<b>City:</b> ' + client[5] + '</br>';
+        textPrint += '<b>Date:</b> ' + client[7] + '</br>';
+        textPrint += '<b>Time:</b> ' + client[8] + ' - ' + client[9] + '</br>';
+        textPrint += '<b>Notice:</b> ' + client[10] + '</br>';
+        textPrint += '<b>Address:</b> ' + client[4] + '</br>';
+        textPrint += '<b>Phone:</b> ' + client[3] + '<hr>'; 
+        // <hr> creates a horizontal line between reservations
+	}
+
+    // Show all reservations inside the result paragraph
+	document.getElementById('res').innerHTML = textPrint;
+}
+
+
+// Handle cancel-reservation button click
+function removeIdFunc() {
+	// Get the ID entered by the user
+    var id = document.getElementById('removeId').value;
+    // Check if ID field is empty
+    if(id == ''){
+        showMessage("Please provide your ID to cancel the reservation!");
+        return;
+    }
+    // Check ID format
+    var idRegex = /^[0-9]{9}$/;      // Exactly 9 digits for ID
+    if (!idRegex.test(id)) 
+        showMessage("Invalid ID: must be 9 digits only");
+    else
+        removeIdFromDb(id);
+}
+
+// remove a client from localStorage
+function removeIdFromDb(id) {
+    // Check if the id exists in localStorage
+    if(localStorage.getItem(id) !== null) {
+        localStorage.removeItem(id);  // remove the entry
+        showSuccessMessage("Reservation cancelled successfully");
+    }
+    else
+        showMessage("No reservation found for this ID !!");
 }
 
 //this function changes the URL inside the Iframe via 
