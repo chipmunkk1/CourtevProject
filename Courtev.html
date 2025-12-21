@@ -1,81 +1,43 @@
 <!DOCTYPE html>
 <html>
 
-<!--
-    ============================================================================
-    Document Head
-    ============================================================================
-    Contains metadata, page title, CSS styling, and all required JavaScript files
-    for data handling, logic, visual effects, and presentation.
--->
 <head>
     <title>Courtev</title>
-
     <link rel="stylesheet" href="Courtev.css">
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            // Your actual Public Key
+            emailjs.init("mohbZi_D070wIBYA3");
+        })();
+    </script>
+
     <script src="DataAccess.js"></script>
-
     <script src="Logic.js"></script>
-
     <script src="three.r134.min.js"></script>
-
     <script src="vanta.globe.min.js"></script>
-
     <script src="Presentation.js"></script>
 </head>
 
 <body>
 
-    <!--
-        ============================================================================
-        Embedded Iframe
-        ============================================================================
-        Used to display external sport-related websites when a court is selected.
-    -->
     <iframe id="Frame" src="" frameborder="0"></iframe>
 
-    <!--
-        ============================================================================
-        Split Loader Animation
-        ============================================================================
-        Displayed during application initialization to improve user experience.
-    -->
     <div id="split-loader">
         <div class="half left-half"></div>
         <div class="half right-half"></div>
     </div>
 
-    <!--
-        ============================================================================
-        Main Application Container
-        ============================================================================
-        Holds all visible content of the application.
-    -->
     <div id="main-content">
-
-        <!-- Animated background container (VANTA) -->
         <div id="vanta-bg"></div>
-
-        <!-- Central content wrapper -->
         <div id="content-area">
 
-            <!--
-                ============================================================================
-                Global Header
-                ============================================================================
-                Displays the application logo and main title.
-            -->
             <div id="global-header">
                 <img id="logo" src="logo.png">
                 <h2>Welcome to the Sports Arena!</h2>
             </div>
 
-            <!--
-                ============================================================================
-                Page 1: Personal Details
-                ============================================================================
-                First step of the booking process.
-            -->
             <div id="page-personal" class="page-section">
                 <table id="Content-Table" border="0">
                     <tr>
@@ -84,7 +46,6 @@
                         </td>
                     </tr>
 
-                    <!-- Form for collecting user personal information -->
                     <form id="PersonalF">
                         <tr>
                             <td>First name:</td>
@@ -94,6 +55,16 @@
                             <td>Last name:</td>
                             <td><input type="text" maxlength="10" id="lname"></td>
                         </tr>
+                        
+                        <tr>
+                            <td>Email:</td>
+                            <td>
+                                <input type="email" id="uEmail" 
+                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                                       title="Please enter a valid email address (e.g., name@example.com) containing '@' and a dot">
+                            </td>
+                        </tr>
+
                         <tr>
                             <td>Phone number:</td>
                             <td><input type="text" maxlength="10" id="PNumber"></td>
@@ -109,19 +80,12 @@
                     </form>
                 </table>
 
-                <!-- Button to proceed to the next step -->
                 <center>
                     <button class="btn-primary" onclick="handlePersonalStep()">Next: Choose Court >></button>
                 </center>
 
                 <hr>
 
-                <!--
-                    ============================================================================
-                    Reservation Management Section
-                    ============================================================================
-                    Allows viewing and cancelling existing reservations.
-                -->
                 <div>
                     <h4>Reservation Management</h4>
                     Id to remove: <input type="text" id="removeId" name="removeId" maxlength="9">
@@ -133,113 +97,96 @@
                 </div>
             </div>
 
-            <!--
-                ============================================================================
-                Page 2: Court and Date Selection
-                ============================================================================
-                Hidden by default and displayed after personal details validation.
-            -->
             <div id="page-reservation" class="page-section hidden">
-                <button class="btn-secondary" onclick="goBackToPersonal()">
-                    << Back</button>
+                <button class="btn-secondary" onclick="goBackToPersonal()"><< Back</button>
 
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr valign="top">
-                                <td width="65%">
-                                    <table border="0" cellpadding="5" cellspacing="0">
-                                        <tr>
-                                            <td colspan="2">
-                                                <h4>Court Details:</h4>
-                                            </td>
-                                        </tr>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr valign="top">
+                        <td width="65%">
+                            <table border="0" cellpadding="5" cellspacing="0">
+                                <tr>
+                                    <td colspan="2">
+                                        <h4>Court Details:</h4>
+                                    </td>
+                                </tr>
 
-                                        <!-- Court selection form -->
-                                        <form id="CourtF">
-                                            <tr>
-                                                <td>City:</td>
-                                                <td>
-                                                    <select id="city">
-                                                        <option value="Mazraa">Mazraa</option>
-                                                        <option value="Furedes">Furedes</option>
-                                                        <option value="Sakhnin">Sakhnin</option>
-                                                        <option value="Deir el Asad">Deir el Asad</option>
-                                                        <option value="Karmiel">Karmiel</option>
-                                                        <option value="Acre">Acre</option>
-                                                        <option value="Nahariya">Nahariya</option>
-                                                        <option value="Haifa">Haifa</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
-                                        </form>
+                                <form id="CourtF">
+                                    <tr id="trMaps">
+                                        <td>City:</td>
+                                        <td>
+                                            <select id="city" onchange="handleCityChange(this.value)">
+                                                <option value="">Select a city...</option>
+                                                <option value="Mazraa">Mazraa</option>
+                                                <option value="Furedes">Furedes</option>
+                                                <option value="Sakhnin">Sakhnin</option>
+                                                <option value="Deir el Asad">Deir el Asad</option>
+                                                <option value="Karmiel">Karmiel</option>
+                                                <option value="Acre">Acre</option>
+                                                <option value="Nahariya">Nahariya</option>
+                                                <option value="Haifa">Haifa</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <p id="location"></p>
+                                            <iframe id="Maps" src="" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            <h3 id="weather-result"></h3>
+                                        </td>
+                                    </tr>
+                                </form>
+                                <tr>
+                                    <td colspan="2">
+                                        <h4>Dates:</h4>
+                                    </td>
+                                </tr>
 
-                                        <tr>
-                                            <td colspan="2">
-                                                <h4>Dates:</h4>
-                                            </td>
-                                        </tr>
+                                <form id="DatesF">
+                                    <tr>
+                                        <td><label>Date:</label></td>
+                                        <td><input type="date" id="schedule-date"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>Time From:</label></td>
+                                        <td><input type="time" id="alarm-timeF" min="0" max="23" value="00"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label>To:</label></td>
+                                        <td><input type="time" id="alarm-timeT"></td>
+                                    </tr>
+                                </form>
+                            </table>
 
-                                        <!-- Date and time selection form -->
-                                        <form id="DatesF">
-                                            <tr>
-                                                <td><label>Date:</label></td>
-                                                <td><input type="date" id="schedule-date"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>Time From:</label></td>
-                                                <td><input type="time" id="alarm-timeF" min="0" max="23" value="00"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label>To:</label></td>
-                                                <td><input type="time" id="alarm-timeT"></td>
-                                            </tr>
-                                        </form>
-                                    </table>
+                            <textarea id="Notes" placeholder="Enter your notes" rows="3" cols="30"></textarea>
 
-                                    <!-- Optional notes -->
-                                    <textarea id="Notes" placeholder="Enter your notes" rows="3" cols="30"></textarea>
+                            <button type="button" class="btn-primary" onclick="validateAndPay()">Proceed to Payment</button>
+                        </td>
 
-                                    <!-- Proceed to payment -->
-                                    <button type="button" class="btn-primary" onclick="validateAndPay()">Proceed to Payment</button>
-                                </td>
-
-                                <!-- Court type selection -->
-                                <td width="35%">
-                                    <div id="Pick">
-                                        <h4>Pick a Court:</h4>
-                                        <table border="0" cellspacing="5">
-                                            <tr>
-                                                <td><input type="radio" name="sport" value="football"
-                                                        onclick="ChangeSite('https://www.soccersport.co.il')"></td>
-                                                <td>Football -> 300₪/hr</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="radio" name="sport" value="basketball"
-                                                        onclick="ChangeSite('https://www.sportcom.co.il/category/ציוד-כדורסל')"></td>
-                                                <td>Basketball -> 240₪/hr</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="radio" name="sport" value="VallyBall"
-                                                        onclick="ChangeSite('https://www.msport.co.il/73060-כדורים/122134')"></td>
-                                                <td>Volleyball -> 180₪/hr</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="radio" name="sport" value="Tennis"
-                                                        onclick="ChangeSite('https://www.lotems.co.il')"></td>
-                                                <td>Tennis -> 120₪/hr</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                        <td width="35%">
+                            <div id="Pick">
+                                <h4>Pick a Court:</h4>
+                                <table border="0" cellspacing="5">
+                                    <tr>
+                                        <td><input type="radio" name="sport" value="football" onclick="changeSite('https://www.soccersport.co.il')"></td>
+                                        <td>Football -> 300₪/hr</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="radio" name="sport" value="basketball" onclick="changeSite('https://www.sportcom.co.il/category/ציוד-כדורסל')"></td>
+                                        <td>Basketball -> 240₪/hr</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="radio" name="sport" value="VallyBall" onclick="changeSite('https://www.msport.co.il/73060-כדורים/122134')"></td>
+                                        <td>Volleyball -> 180₪/hr</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="radio" name="sport" value="Tennis" onclick="changeSite('https://www.lotems.co.il')"></td>
+                                        <td>Tennis -> 120₪/hr</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
-            <!--
-                ============================================================================
-                Page 3: Booking Confirmation
-                ============================================================================
-                Displayed after successful payment.
-            -->
             <div id="page-confirmation" class="page-section hidden">
                 <h1>Booking Confirmed!</h1>
                 <h3>Thank you for using Sports Arena.</h3>
@@ -248,35 +195,25 @@
                 <button class="btn-secondary" onclick="location.reload()">Book Another Court</button>
             </div>
 
-            <!--
-                ============================================================================
-                Payment Modal
-                ============================================================================
-                Collects credit card information and confirms payment.
-            -->
             <dialog id="paymentModal">
                 <h3>Enter Card Details</h3>
                 <form method="dialog">
-                    <input id="CardNum" type="text" placeholder="Card Number" maxlength="16"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                    <input id="CardNum" type="text" placeholder="Card Number" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                     <input id="DateMonth" type="month">
-                    <input id="CVV" type="text" placeholder="CVV" maxlength="3"
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <input id="CVV" type="text" placeholder="CVV" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     <span id="price"></span>
                     <button class="btn-pay" type="button" onclick="finalizePayment()">Confirm Payment</button>
                     <button class="btn-close" type="button" onclick="closePaymentWindow()">Cancel</button>
                 </form>
             </dialog>
 
-            <!-- Error dialog -->
             <dialog id="notificationModal">
                 <h3 id="Error">Error!</h3>
                 <p id="notificationMessage"></p>
                 <button onclick="closeNotificationWindow()">Dismiss</button>
             </dialog>
 
-            <!-- Success dialog -->
-             <dialog id="successModal">
+            <dialog id="successModal">
                 <h3 id="success">Success!</h3>
                 <p id="successMessage"></p>
                 <button class="c-click" onclick="closeSuccessWindow()">Close</button>
@@ -285,5 +222,4 @@
         </div>
     </div>
 </body>
-
 </html>

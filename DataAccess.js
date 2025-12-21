@@ -1,15 +1,20 @@
 // Data Access Tier - logic related to the data access tier
 
 // Save reservation info to localStorage
-function processInfo(id, fname, lname, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice) {
-    var dbString = stringify(id, fname, lname, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice);
+function processInfo(id, fname, lname, email, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice) {
+    // 🔥 Added email to the parameters
+    var dbString = stringify(id, fname, lname, email, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice);
     localStorage.setItem(id, dbString);
 }
 
 // Convert reservation info into a string format for storage
-function stringify(id, fname, lname, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice) {
+function stringify(id, fname, lname, email, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice) {
     var nameStr = 'name: ' + fname;
     var lastNameStr = 'lastName: ' + lname;
+    
+    // 🔥 Saving Email
+    var emailStr = 'email: ' + email;
+
     var pnumber = 'phone-number: ' + pnumber;
     var addrStr = 'address: ' + address;
     var courtCity = 'court-address: ' + courtCity;
@@ -19,8 +24,8 @@ function stringify(id, fname, lname, pnumber, address, courtCity, selectedItem, 
     var timeTo = 'to: ' + timeTo;
     var notice = 'notice: ' + notice;
 
-    // Combine all fields into a single string
-    var dbStr = '{'+ nameStr + ',' + lastNameStr + ',' + pnumber + ',' + addrStr + ',' + courtCity + ',' + court + ',' + date + ',' + timeFrom + ',' + timeTo + ',' + notice +'}';
+    // Combine all fields into a single string (Inserted Email between Last Name and Phone)
+    var dbStr = '{'+ nameStr + ',' + lastNameStr + ',' + emailStr + ',' + pnumber + ',' + addrStr + ',' + courtCity + ',' + court + ',' + date + ',' + timeFrom + ',' + timeTo + ',' + notice +'}';
     return dbStr;   
 }
 
@@ -36,12 +41,16 @@ function getBookersDb(){
         tmpClient[2] = getLastName(clientInfo);        // last name
         tmpClient[3] = getPnumber(clientInfo);         // phone number
         tmpClient[4] = getAddr(clientInfo);            // address
-        tmpClient[5] = getAddrCourt(clientInfo);       //court reservation address
+        tmpClient[5] = getAddrCourt(clientInfo);       // court reservation address
         tmpClient[6] = getCourt(clientInfo);           // court
         tmpClient[7] = getDate(clientInfo);            // reservation date
         tmpClient[8] = getTimeFrom(clientInfo);        // start time
         tmpClient[9] = getTimeTo(clientInfo);          // end time
-        tmpClient[10] = getNotice(clientInfo);          // **special: notice / comment**
+        tmpClient[10] = getNotice(clientInfo);         // notice
+        
+        // 🔥 Get Email
+        tmpClient[11] = getEmail(clientInfo);
+
         clients[i] = tmpClient;
     }
     return clients;
@@ -54,14 +63,22 @@ function getName(clientInfo) {
     return clientInfo.substring(nameIndex, endNameIndex);
 }
 
-// Extract last name
+// Extract last name (Updated end index)
 function getLastName(clientInfo) {
     var lastNameIndex = clientInfo.indexOf('lastName')+10;
-    var endLastNameIndex = clientInfo.indexOf(',phone-number:');
+    // Ends at email now
+    var endLastNameIndex = clientInfo.indexOf(',email:'); 
     return clientInfo.substring(lastNameIndex, endLastNameIndex);
 }
 
-// Extract phone number
+// 🔥 Extract Email (New Function)
+function getEmail(clientInfo) {
+    var emailIndex = clientInfo.indexOf('email:')+7;
+    var endEmailIndex = clientInfo.indexOf(',phone-number:');
+    return clientInfo.substring(emailIndex, endEmailIndex);
+}
+
+// Extract phone number (Updated start index logic)
 function getPnumber(clientInfo) {
     var PNumberIndex = clientInfo.indexOf('phone-number')+14;
     var endPNumberIndex = clientInfo.indexOf('address')-1;
@@ -110,9 +127,20 @@ function getTimeTo(clientInfo) {
     return clientInfo.substring(tToIndex, endTTOIndex);
 }
 
-// **Extract notice / comment**
+// Extract notice
 function getNotice(clientInfo) {
-    var noticeIndex = clientInfo.indexOf('notice')+8;  // skip "notice: "
-    var endNoticeIndex = clientInfo.indexOf('}');      // till end of string
+    var noticeIndex = clientInfo.indexOf('notice')+8; 
+    var endNoticeIndex = clientInfo.indexOf('}');     
     return clientInfo.substring(noticeIndex, endNoticeIndex);
+}
+
+// remove a client from localStorage
+function removeIdFromDb(id) {
+    if (localStorage.getItem(id) !== null) {
+        localStorage.removeItem(id); 
+        showSuccessMessage("Reservation cancelled successfully");
+        getAllReservations(); 
+    }
+    else
+        showMessage("No reservation found for this ID !!");
 }

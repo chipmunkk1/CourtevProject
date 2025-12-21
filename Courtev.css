@@ -8,12 +8,19 @@
 .hidden {
     display: none !important;
 }
+
 .page-section {
     animation: fadeIn 0.5s;
 }
+
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /** 
@@ -31,8 +38,9 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .btn-primary:hover {
     background-color: #0056b3;
 }
@@ -55,17 +63,42 @@
  * once the application has finished loading.
  */
 #split-loader {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; pointer-events: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: auto;
 }
+
 .half {
-    position: absolute; top: 0; width: 50%; height: 100%;
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
     background-image: url('vector-green-soccer-field-football-field-gridiron_1284-41290.avif');
-    background-size: 200% 100%; transition: transform 1.5s ease-in-out;
+    background-size: 200% 100%;
+    transition: transform 1.5s ease-in-out;
 }
-.half.left-half { left: 0; background-position: 0%; }
-.right-half { right: 0; background-position: 100%; }
-#split-loader.loaded .left-half { transform: translateX(-100%); }
-#split-loader.loaded .right-half { transform: translateX(100%); }
+
+.half.left-half {
+    left: 0;
+    background-position: 0%;
+}
+
+.right-half {
+    right: 0;
+    background-position: 100%;
+}
+
+#split-loader.loaded .left-half {
+    transform: translateX(-100%);
+}
+
+#split-loader.loaded .right-half {
+    transform: translateX(100%);
+}
 
 /** 
  * ------------------------------------------------------------------------------------
@@ -74,13 +107,32 @@
  * Handles main content visibility, fade-in effect,
  * and background rendering layers.
  */
-#main-content { opacity: 0; transition: opacity 1.5s ease-in-out; }
-#main-content.visible { opacity: 1; }
+#main-content {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
 
-#vanta-bg { width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: -1; }
+#main-content.visible {
+    opacity: 1;
+}
 
-#content-area { 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; 
+#vanta-bg {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#content-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 /** 
@@ -90,12 +142,25 @@
  * Input field sizing and table layout rules
  * for improved alignment and visual consistency.
  */
-#fname, #lname, #Address { width: 150px; }
-#PNumber { width: 100px; }
-#Id { width: 90px; }
+#fname,
+#lname,
+#Address {
+    width: 150px;
+}
+
+#PNumber {
+    width: 100px;
+}
+
+#Id {
+    width: 90px;
+}
 
 #Content-Table {
-    margin: 0 auto; background: rgba(255,255,255,0.8); padding: 20px; border-radius: 10px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
 }
 
 /** 
@@ -106,15 +171,46 @@
  * error notifications, and success confirmations.
  */
 dialog {
-    background-color: rgb(207, 204, 204); border: none; border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5); padding: 20px; text-align: center; width: 400px;
+    background-color: rgb(207, 204, 204);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    width: 400px;
 }
-dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
 
-.btn-pay { background-color: green; color: white; padding: 10px; border: none; cursor: pointer; margin-top: 10px; width: 100%; }
-.btn-close { background-color: red; color: white; border: none; padding: 5px; cursor: pointer; margin-top: 5px; width: 100%; }
-#Error { color: red; }
-#success { color: green; }
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-pay {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.btn-close {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    width: 100%;
+}
+
+#Error {
+    color: red;
+}
+
+#success {
+    color: green;
+}
 
 /** 
  * ------------------------------------------------------------------------------------
@@ -124,11 +220,25 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
  * including logo display and title positioning.
  */
 #global-header {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    margin-bottom: 20px; position: relative; z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
 }
-#logo { max-width: 300px; height: auto; display: block; }
-#global-header h2 { margin-top: 10px; text-align: center; }
+
+#logo {
+    max-width: 300px;
+    height: auto;
+    display: block;
+}
+
+#global-header h2 {
+    margin-top: 10px;
+    text-align: center;
+}
 
 /** 
  * ------------------------------------------------------------------------------------
@@ -137,9 +247,16 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
  * Embedded iframe styling and additional layout refinements.
  */
 #Frame {
-    position: absolute; top: 70%; left: 70%; width: 400px; height: 200px;
-    transform: translate(-50%, -50%); z-index: 9999; display: none;
-    border: 5px solid white; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    position: absolute;
+    top: 70%;
+    left: 70%;
+    width: 400px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+    border: 5px solid white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 /** Title styling inside the personal details table */
@@ -148,8 +265,8 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
 }
 
 /** Reservation management section inside the personal page */
-#page-personal > div {
-    background: rgba(255,255,255,0.7);
+#page-personal>div {
+    background: rgba(255, 255, 255, 0.7);
     padding: 15px;
     border-radius: 8px;
     text-align: center;
@@ -168,7 +285,7 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
 }
 
 /** Reservation page main table styling */
-#page-reservation > table {
+#page-reservation>table {
     background-color: transparent;
 }
 
@@ -178,7 +295,7 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
 }
 
 /** Right-side cell styling for court selection area */
-#page-reservation > table > tbody > tr > td:nth-child(2) {
+#page-reservation>table>tbody>tr>td:nth-child(2) {
     padding-top: 50px;
     padding-left: 20px;
 }
@@ -187,7 +304,7 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
 #page-confirmation {
     text-align: center;
     margin-top: 100px;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.9);
     padding: 40px;
     border-radius: 15px;
 }
@@ -204,7 +321,8 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
 }
 
 /** Payment date and CVV input sizing */
-#DateMonth, #CVV {
+#DateMonth,
+#CVV {
     width: 40%;
 }
 
@@ -214,3 +332,80 @@ dialog::backdrop { background-color: rgba(0, 0, 0, 0.6); }
     margin: 10px 0;
     font-weight: bold;
 }
+
+#Maps {
+    width: 300px;
+    height: 225px;
+    border: 0;
+    z-index: 9999;
+    display: none;
+    border: 5px solid white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#trMaps {
+    width: 300px;
+    height: 225px;
+}
+#location
+{
+
+     width: 150px;
+     font-size: 20px;
+}
+
+
+/**
+ * ------------------------------------------------------------------------------------
+ * WEATHER WIDGET STYLING
+ * ------------------------------------------------------------------------------------
+ * Creates a modern "Glassmorphism" card effect for displaying weather information.
+ */
+
+#weather-result {
+    display: none;
+
+    
+    /* 1. Positioning & Spacing */
+    margin-top: 15px;
+    padding: 15px 25px; /* Comfortable internal spacing */
+    
+    /* 2. Card Appearance */
+    background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent white background */
+    border-radius: 15px; /* Smooth rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.9); /* Subtle border */
+    
+    /* 3. Depth & Elevation Effect */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    
+    /* 4. Text Formatting */
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1em;
+    
+    /* 5. Center the container horizontally */
+    width: fit-content; /* Container width adapts to content */
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Smooth appearance animation */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Styling for the clickable link inside the weather card */
+.weather-link {
+    color: #007bff; /* Primary blue color */
+    text-decoration: none; /* Remove default underline */
+    font-weight: bold;
+    display: flex; /* Align icon and text horizontally */
+    align-items: center;
+    gap: 8px; /* Spacing between icon and text */
+}
+
+/* Hover interaction styling for the weather link */
+.weather-link:hover {
+    color: #0056b3; /* Darker shade on hover */
+    text-decoration: underline;
+}
+
+
