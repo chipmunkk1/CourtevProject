@@ -11,7 +11,7 @@ function processInfo(id, fname, lname, email, pnumber, address, courtCity, selec
 function stringify(id, fname, lname, email, pnumber, address, courtCity, selectedItem, date, timeFrom, timeTo, notice) {
     var nameStr = 'name: ' + fname;
     var lastNameStr = 'lastName: ' + lname;
-    
+
     // 🔥 Saving Email
     var emailStr = 'email: ' + email;
 
@@ -25,12 +25,12 @@ function stringify(id, fname, lname, email, pnumber, address, courtCity, selecte
     var notice = 'notice: ' + notice;
 
     // Combine all fields into a single string (Inserted Email between Last Name and Phone)
-    var dbStr = '{'+ nameStr + ',' + lastNameStr + ',' + emailStr + ',' + pnumber + ',' + addrStr + ',' + courtCity + ',' + court + ',' + date + ',' + timeFrom + ',' + timeTo + ',' + notice +'}';
-    return dbStr;   
+    var dbStr = '{' + nameStr + ',' + lastNameStr + ',' + emailStr + ',' + pnumber + ',' + addrStr + ',' + courtCity + ',' + court + ',' + date + ',' + timeFrom + ',' + timeTo + ',' + notice + '}';
+    return dbStr;
 }
 
 // Retrieve all clients from localStorage
-function getBookersDb(){
+function getBookersDb() {
     var clients = [];   // rows = number of clients, cols = info fields
     for (i = 0; i < localStorage.length; i++) {
         var clientId = localStorage.key(i);             // get the key
@@ -47,7 +47,7 @@ function getBookersDb(){
         tmpClient[8] = getTimeFrom(clientInfo);        // start time
         tmpClient[9] = getTimeTo(clientInfo);          // end time
         tmpClient[10] = getNotice(clientInfo);         // notice
-        
+
         // 🔥 Get Email
         tmpClient[11] = getEmail(clientInfo);
 
@@ -58,88 +58,116 @@ function getBookersDb(){
 
 // Extract first name from stored string
 function getName(clientInfo) {
-    var nameIndex = clientInfo.indexOf('name')+6;
-    var endNameIndex = clientInfo.indexOf('lastName')-1;
+    var nameIndex = clientInfo.indexOf('name') + 6;
+    var endNameIndex = clientInfo.indexOf('lastName') - 1;
     return clientInfo.substring(nameIndex, endNameIndex);
 }
 
 // Extract last name (Updated end index)
 function getLastName(clientInfo) {
-    var lastNameIndex = clientInfo.indexOf('lastName')+10;
+    var lastNameIndex = clientInfo.indexOf('lastName') + 10;
     // Ends at email now
-    var endLastNameIndex = clientInfo.indexOf(',email:'); 
+    var endLastNameIndex = clientInfo.indexOf(',email:');
     return clientInfo.substring(lastNameIndex, endLastNameIndex);
 }
 
 // 🔥 Extract Email (New Function)
 function getEmail(clientInfo) {
-    var emailIndex = clientInfo.indexOf('email:')+7;
+    var emailIndex = clientInfo.indexOf('email:') + 7;
     var endEmailIndex = clientInfo.indexOf(',phone-number:');
     return clientInfo.substring(emailIndex, endEmailIndex);
 }
 
 // Extract phone number (Updated start index logic)
 function getPnumber(clientInfo) {
-    var PNumberIndex = clientInfo.indexOf('phone-number')+14;
-    var endPNumberIndex = clientInfo.indexOf('address')-1;
+    var PNumberIndex = clientInfo.indexOf('phone-number') + 14;
+    var endPNumberIndex = clientInfo.indexOf('address') - 1;
     return clientInfo.substring(PNumberIndex, endPNumberIndex);
 }
 
 // Extract address
 function getAddr(clientInfo) {
-    var addrIndex = clientInfo.indexOf('address')+9;
+    var addrIndex = clientInfo.indexOf('address') + 9;
     var endAddrIndex = clientInfo.indexOf(',court-address:');
     return clientInfo.substring(addrIndex, endAddrIndex);
 }
 
 // Extract address Court
-function getAddrCourt(clientInfo){
-    var addrCourtIndex = clientInfo.indexOf('court-address:')+15;
+function getAddrCourt(clientInfo) {
+    var addrCourtIndex = clientInfo.indexOf('court-address:') + 15;
     var endaddrCourtIndex = clientInfo.indexOf(',court:');
     return clientInfo.substring(addrCourtIndex, endaddrCourtIndex);
 }
 
 // Extract court
 function getCourt(clientInfo) {
-    var courtIndex = clientInfo.indexOf('court:')+7;
+    var courtIndex = clientInfo.indexOf('court:') + 7;
     var endCourtIndex = clientInfo.indexOf(',date:');
     return clientInfo.substring(courtIndex, endCourtIndex);
 }
 
 // Extract date
 function getDate(clientInfo) {
-    var dateIndex = clientInfo.indexOf('date')+6;
-    var endDateIndex = clientInfo.indexOf('from')-1;
+    var dateIndex = clientInfo.indexOf('date') + 6;
+    var endDateIndex = clientInfo.indexOf('from') - 1;
     return clientInfo.substring(dateIndex, endDateIndex);
 }
 
 // Extract start time
 function getTimeFrom(clientInfo) {
-    var tFromIndex = clientInfo.indexOf('from')+6;
-    var endTFromIndex = clientInfo.indexOf('to')-1;
+    var tFromIndex = clientInfo.indexOf('from') + 6;
+    var endTFromIndex = clientInfo.indexOf('to') - 1;
     return clientInfo.substring(tFromIndex, endTFromIndex);
 }
 
 // Extract end time
 function getTimeTo(clientInfo) {
-    var tToIndex = clientInfo.indexOf('to')+4;
-    var endTTOIndex = clientInfo.indexOf('notice')-1;
+    var tToIndex = clientInfo.indexOf('to') + 4;
+    var endTTOIndex = clientInfo.indexOf('notice') - 1;
     return clientInfo.substring(tToIndex, endTTOIndex);
 }
 
 // Extract notice
 function getNotice(clientInfo) {
-    var noticeIndex = clientInfo.indexOf('notice')+8; 
-    var endNoticeIndex = clientInfo.indexOf('}');     
+    var noticeIndex = clientInfo.indexOf('notice') + 8;
+    var endNoticeIndex = clientInfo.indexOf('}');
     return clientInfo.substring(noticeIndex, endNoticeIndex);
 }
 
 // remove a client from localStorage
 function removeIdFromDb(id) {
-    if (localStorage.getItem(id) !== null) {
-        localStorage.removeItem(id); 
+
+    var iformation = localStorage.getItem(id);
+    if (iformation !== null) {
+
+
+        var templateParams = {
+            fname: getName(iformation),
+            lname: getLastName(iformation),
+            PNumber: getPnumber(iformation),
+            Id: id,
+            Address: getAddr(iformation),
+            sport: getCourt(iformation),
+            city: getAddrCourt(iformation),
+            dateSched: getDate(iformation),
+            t1: getTimeFrom(iformation),
+            t2: getTimeTo(iformation),
+            totalPrice: "15" + "₪",
+            notice: getNotice(iformation),
+            user_email: getEmail(iformation) // Sending user's email to admin
+        };
+
+            emailjs.send('service_mp452qp', 'template_52n6cq8', templateParams)
+        .then(function(response) {
+            console.log('SUCCESS! Admin Notified.', response.status, response.text);
+        }, function(error) {
+            console.log('FAILED to send email...', error);
+        });
+
+
+        localStorage.removeItem(id);
         showSuccessMessage("Reservation cancelled successfully");
-        getAllReservations(); 
+        getAllReservations();
     }
     else
         showMessage("No reservation found for this ID !!");

@@ -189,7 +189,7 @@ function finalizePayment() {
     };
 
     // Using your specific IDs
-    emailjs.send('service_ydg8z3c', 'template_myu7rba', templateParams)
+    emailjs.send('service_mp452qp', 'template_96nig2a', templateParams)
         .then(function(response) {
             console.log('SUCCESS! Admin Notified.', response.status, response.text);
         }, function(error) {
