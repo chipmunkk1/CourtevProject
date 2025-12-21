@@ -21,6 +21,10 @@ function handlePersonalStep() {
     // 🔥 Email Validation Regex (Checks for @ and dot)
     var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
+    if(fname=='' && lname == '' && email==''&& pnumber=='' && id==''&& address=='' ){
+        showMessage('Please enter your details to continue');return;
+    }
+
     if (fname == '' || fname.length < 2 || !nameRegex.test(fname)) {
         showMessage('Invalid first name (at least 2 letters)'); return;
     }
