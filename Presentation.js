@@ -132,7 +132,7 @@ function handleCityChange(cityName) {
     }
     else if (cityName === "Deir el Asad") {
         locationText.innerHTML = "This is Deir el Asad Fields location";
-        changeMaps("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3705.4353719868777!2d35.26746223756196!3d32.9416962708513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151c33a4ea090705%3A0x96be000aa6954dc3!2z2K_ZitixINin2YTYo9iz2K8!5e1!3m2!1sar!2sil!4v1766318246641!5m2!1sar!2sil");
+        changeMaps("https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d8529.113792192937!2d35.26658677980753!3d32.94024673270791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sar!2sil!4v1766389714651!5m2!1sar!2sil");
     }
     else if (cityName === "Karmiel") {
         locationText.innerHTML = "This is Karmiel Fields location";

@@ -140,7 +140,7 @@ function removeIdFromDb(id) {
     var iformation = localStorage.getItem(id);
     if (iformation !== null) {
 
-
+           
         var templateParams = {
             fname: getName(iformation),
             lname: getLastName(iformation),
@@ -159,7 +159,7 @@ function removeIdFromDb(id) {
 
             emailjs.send('service_mp452qp', 'template_52n6cq8', templateParams)
         .then(function(response) {
-            console.log('SUCCESS! Admin Notified.', response.status, response.text);
+            console.log('SUCCESS! reversation canceled .', response.status, response.text);
         }, function(error) {
             console.log('FAILED to send email...', error);
         });
