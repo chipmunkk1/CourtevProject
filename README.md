@@ -1,86 +1,97 @@
 # 🏟️ Courtev – Sports Court Reservation Platform
 
-Courtev is a frontend web application that allows users to reserve sports courts easily and intuitively.  
-The platform supports multiple sports and locations, providing users with real-time contextual information such as location maps, weather conditions, and sport-related equipment.
+**Courtev** is a frontend web application designed to make reserving sports courts easy and intuitive. The platform supports multiple sports and locations, providing users with real-time contextual information such as location maps, weather conditions, and sport-related equipment.
 
-This project was developed as a college learning project with a strong focus on clean architecture, user flow, and modern web concepts.
+This project was developed as a college learning project with a strong focus on **clean architecture**, **user flow**, and **modern web concepts**.
 
 ---
 
 ## 📌 Project Overview
-
 Courtev enables users to:
+* **Reserve** sports courts for various sports.
+* **Filter** by city, date, and time range.
+* **Locate** courts via integrated Google Maps.
+* **Check** real-time weather conditions before booking.
+* **Shop** for sport-specific equipment via embedded services.
+* **Manage** bookings with email confirmations and cancellation rules.
 
-- Reserve sports courts for different sports
-- Choose a city, date, and time range
-- View court locations on Google Maps
-- See real-time weather information
-- Purchase sport-related equipment via embedded services
-- Receive email confirmation upon successful booking
-- Cancel reservations according to defined rules
-
-Currently, the project is implemented as a frontend simulation, with plans to extend it to a full-stack system.
+> **Note:** Currently, the project is implemented as a frontend simulation, with plans to extend it to a full-stack system.
 
 ---
 
 ## 🏐 Supported Sports
-
-- ⚽ Soccer
-- 🎾 Tennis
-- 🏀 Basketball
-- 🏐 Volleyball
-
-Each sport dynamically updates the UI and embedded content based on the user’s selection.
+The UI dynamically updates based on the sport selected:
+* ⚽ **Soccer**
+* 🎾 **Tennis**
+* 🏀 **Basketball**
+* 🏐 **Volleyball**
 
 ---
 
 ## 🔄 User Flow
 
-- **User Information Page**
-  - Enter personal details (name, email, phone, ID, address)
-  - Proceed to court selection
 
-- **Court Selection Page**
-  - Choose sport, city, date, and time slot
-  - View:
-    - 📍 Embedded Google Maps showing court location
-    - 🌤️ Embedded real-time weather service
-    - 🛒 Embedded sport-related shopping site (SaaS)
 
-- **Booking**
-  - Click Book
-  - Payment window (UI simulation)
-  - Booking confirmation is sent via email
-
-- **Cancellation**
-  - Users can cancel a reservation using their ID
-  - Cancellation is allowed up to 24 hours before the reservation time
-
----
-
-## 🧩 Key Features
-
-- Dynamic court reservation system
-- Embedded Google Maps for location preview
-- Real-time weather embedding
-- Sport-based SaaS integration (equipment and gear)
-- Email confirmation system
-- Reservation cancellation logic
-- Clean UI and user-friendly flow
+1.  **User Information Page**: Enter personal details (Name, Email, Phone, ID, Address).
+2.  **Court Selection Page**: Choose sport, city, date, and time slot.
+3.  **Contextual Insights**: 
+    * 📍 **Google Maps**: Preview court location.
+    * 🌤️ **Weather Service**: Check real-time conditions.
+    * 🛒 **SaaS Integration**: Purchase gear via embedded shopping sites.
+4.  **Booking**: Complete the UI-simulated payment and receive an email confirmation.
+5.  **Cancellation**: Reservations can be cancelled using a User ID up to **24 hours** before the scheduled time.
 
 ---
 
 ## 🛠️ Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- Local data storage (frontend simulation)
-- Embedded external services (iframes)
+* **HTML5 & CSS3**: Structure and responsive styling.
+* **JavaScript (Vanilla)**: Core business logic and UI manipulation.
+* **Local Storage**: Frontend-based data persistence.
+* **Iframes**: Integration of external services (Maps, Weather, Shopping).
 
 ---
 
 ## 🧱 Project Architecture
+The project follows a strict **Separation of Concerns** to ensure maintainability:
 
-The project follows a clear separation of concerns:
+* **/data**: Local data handling and reservation storage logic.
+* **/logic**: Core JavaScript business logic and validation rules.
+* **/presentation**: UI pages, CSS styling, and layout assets.
 
+---
+
+## 🚀 How to Run the Project
+1.  **Clone the repository**:
+    ```bash
+    git clone [https://github.com/your-username/courtev.git](https://github.com/your-username/courtev.git)
+    ```
+2.  **Open the project**:
+    Simply open `index.html` in any modern web browser.
+    *No additional setup or backend servers are required for this frontend-only version.*
+
+---
+
+## 📈 Project Status & Roadmap
+🟡 **Current Status**: Almost Completed (Frontend Simulation)
+
+**Planned Improvements**:
+- [ ] Replace iframes with real API integrations (OpenWeather, Google Maps API).
+- [ ] Implement a backend (SQL or NoSQL) for persistent data.
+- [ ] Integrate a real payment gateway (Stripe or PayPal).
+- [ ] Add user authentication and an Admin Dashboard.
+
+---
+
+## 👥 Team Members
+* **Rouhi Basheer**
+* **Diaa Al Din**
+* **Amir Sanallah**
+* **Mohammed Shalata**
+
+---
+
+## 🎓 Purpose
+Courtev was created as a college project to explore:
+* Frontend architecture patterns.
+* Designing real-world user flows.
+* SaaS and third-party service integration.
