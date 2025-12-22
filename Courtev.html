@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title>Courtev</title>
-    <link rel="stylesheet" href="Courtev.css">
+    <link rel="stylesheet" href="Courtev.css" />
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
     <script type="text/javascript">
-        (function () {
-            // Your actual Public Key
-            emailjs.init("NtPiyh6hFRcma-ZZv");
-        })();
+      (function () {
+        // Your actual Public Key
+        emailjs.init("NtPiyh6hFRcma-ZZv");
+      })();
     </script>
 
     <script src="DataAccess.js"></script>
@@ -18,208 +20,305 @@
     <script src="three.r134.min.js"></script>
     <script src="vanta.globe.min.js"></script>
     <script src="Presentation.js"></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <iframe id="Frame" src="" frameborder="0"></iframe>
 
     <div id="split-loader">
-        <div class="half left-half"></div>
-        <div class="half right-half"></div>
+      <div class="half left-half"></div>
+      <div class="half right-half"></div>
     </div>
 
     <div id="main-content">
-        <div id="vanta-bg"></div>
-        <div id="content-area">
-
-            <div id="global-header">
-                <img id="logo" src="logo.png">
-                <h2>Welcome to the Sports Arena!</h2>
-            </div>
-
-            <div id="page-personal" class="page-section">
-                <table id="Content-Table" border="0">
-                    <tr>
-                        <td colspan="2">
-                            <h4>Personal Details:</h4>
-                        </td>
-                    </tr>
-
-                    <form id="PersonalF">
-                        <tr>
-                            <td>First name:</td>
-                            <td><input type="text" maxlength="10" id="fname"></td>
-                        </tr>
-                        <tr>
-                            <td>Last name:</td>
-                            <td><input type="text" maxlength="10" id="lname"></td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Email:</td>
-                            <td>
-                                <input type="email" id="uEmail" 
-                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
-                                       title="Please enter a valid email address (e.g., name@example.com) containing '@' and a dot">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Phone number:</td>
-                            <td><input type="text" maxlength="10" id="PNumber"></td>
-                        </tr>
-                        <tr>
-                            <td>Id:</td>
-                            <td><input type="text" maxlength="9" id="Id"></td>
-                        </tr>
-                        <tr>
-                            <td>Address:</td>
-                            <td><input type="text" maxlength="12" id="Address"></td>
-                        </tr>
-                    </form>
-                </table>
-
-                <center>
-                    <button class="btn-primary" onclick="handlePersonalStep()">Next: Choose Court >></button>
-                </center>
-
-                <hr>
-
-                <div>
-                    <h4>Reservation Management</h4>
-                    Id to remove: <input type="text" id="removeId" name="removeId" maxlength="9">
-                    <button type="button" class="btn-secondary" onclick="removeIdFunc()">Cancel reservation</button>
-                    <br><br>
-                    <button type="button" class="btn-secondary" onclick="getAllReservations()">Show All Reservations</button>
-                    <br><br>
-                    <p id="res"></p>
-                </div>
-            </div>
-
-            <div id="page-reservation" class="page-section hidden">
-                <button class="btn-secondary" onclick="goBackToPersonal()"><< Back</button>
-
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr valign="top">
-                        <td width="65%">
-                            <table border="0" cellpadding="5" cellspacing="0">
-                                <tr>
-                                    <td colspan="2">
-                                        <h4>Court Details:</h4>
-                                    </td>
-                                </tr>
-
-                                <form id="CourtF">
-                                    <tr id="trMaps">
-                                        <td>City:</td>
-                                        <td>
-                                            <select id="city" onchange="handleCityChange(this.value)">
-                                                <option value="">Select a city...</option>
-                                                <option value="Mazraa">Mazraa</option>
-                                                <option value="Furedes">Furedes</option>
-                                                <option value="Sakhnin">Sakhnin</option>
-                                                <option value="Deir el Asad">Deir el Asad</option>
-                                                <option value="Karmiel">Karmiel</option>
-                                                <option value="Acre">Acre</option>
-                                                <option value="Nahariya">Nahariya</option>
-                                                <option value="Haifa">Haifa</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <p id="location"></p>
-                                            <iframe id="Maps" src="" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                            <h3 id="weather-result"></h3>
-                                        </td>
-                                    </tr>
-                                </form>
-                                <tr>
-                                    <td colspan="2">
-                                        <h4>Dates:</h4>
-                                    </td>
-                                </tr>
-
-                                <form id="DatesF">
-                                    <tr>
-                                        <td><label>Date:</label></td>
-                                        <td><input type="date" id="schedule-date"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label>Time From:</label></td>
-                                        <td><input type="time" id="alarm-timeF" min="0" max="23" value="00"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label>To:</label></td>
-                                        <td><input type="time" id="alarm-timeT"></td>
-                                    </tr>
-                                </form>
-                            </table>
-
-                            <textarea id="Notes" placeholder="Enter your notes" rows="3" cols="30"></textarea>
-
-                            <button type="button" class="btn-primary" onclick="validateAndPay()">Proceed to Payment</button>
-                        </td>
-
-                        <td width="35%">
-                            <div id="Pick">
-                                <h4>Pick a Court:</h4>
-                                <table border="0" cellspacing="5">
-                                    <tr>
-                                        <td><input type="radio" name="sport" value="football" onclick="changeSite('https://www.soccersport.co.il')"></td>
-                                        <td>Football -> 300₪/hr</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="sport" value="basketball" onclick="changeSite('https://www.sportcom.co.il/category/ציוד-כדורסל')"></td>
-                                        <td>Basketball -> 240₪/hr</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="sport" value="VallyBall" onclick="changeSite('https://www.msport.co.il/73060-כדורים/122134')"></td>
-                                        <td>Volleyball -> 180₪/hr</td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="radio" name="sport" value="Tennis" onclick="changeSite('https://www.lotems.co.il')"></td>
-                                        <td>Tennis -> 120₪/hr</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="page-confirmation" class="page-section hidden">
-                <h1>Booking Confirmed!</h1>
-                <h3>Thank you for using Sports Arena.</h3>
-                <hr>
-                <div id="final-summary"></div>
-                <button class="btn-secondary" onclick="location.reload()">Book Another Court</button>
-            </div>
-
-            <dialog id="paymentModal">
-                <h3>Enter Card Details</h3>
-                <form method="dialog">
-                    <input id="CardNum" type="text" placeholder="Card Number" maxlength="16" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-                    <input id="DateMonth" type="month">
-                    <input id="CVV" type="text" placeholder="CVV" maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                    <span id="price"></span>
-                    <button class="btn-pay" type="button" onclick="finalizePayment()">Confirm Payment</button>
-                    <button class="btn-close" type="button" onclick="closePaymentWindow()">Cancel</button>
-                </form>
-            </dialog>
-
-            <dialog id="notificationModal">
-                <h3 id="Error">Error!</h3>
-                <p id="notificationMessage"></p>
-                <button onclick="closeNotificationWindow()">Dismiss</button>
-            </dialog>
-
-            <dialog id="successModal">
-                <h3 id="success">Success!</h3>
-                <p id="successMessage"></p>
-                <button class="c-click" onclick="closeSuccessWindow()">Close</button>
-            </dialog>
-
+      <div id="vanta-bg"></div>
+      <div id="content-area">
+        <div id="global-header">
+          <img id="logo" src="logo.png" />
+          <h2>Welcome to the Sports Arena!</h2>
         </div>
+
+        <div id="page-personal" class="page-section">
+          <table id="Content-Table" border="0">
+            <tr>
+              <td colspan="2">
+                <h4>Personal Details:</h4>
+              </td>
+            </tr>
+
+            <form id="PersonalF">
+              <tr>
+                <td>First name:</td>
+                <td><input type="text" maxlength="10" id="fname" /></td>
+              </tr>
+              <tr>
+                <td>Last name:</td>
+                <td><input type="text" maxlength="10" id="lname" /></td>
+              </tr>
+
+              <tr>
+                <td>Email:</td>
+                <td>
+                  <input
+                    type="email"
+                    id="uEmail"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    title="Please enter a valid email address (e.g., name@example.com) containing '@' and a dot"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>Phone number:</td>
+                <td><input type="text" maxlength="10" id="PNumber" /></td>
+              </tr>
+              <tr>
+                <td>Id:</td>
+                <td><input type="text" maxlength="9" id="Id" /></td>
+              </tr>
+              <tr>
+                <td>Address:</td>
+                <td><input type="text" maxlength="12" id="Address" /></td>
+              </tr>
+            </form>
+          </table>
+
+          <center>
+            <button class="btn-primary" onclick="handlePersonalStep()">
+              Next: Choose Court >>
+            </button>
+          </center>
+
+          <hr />
+
+          <div>
+            <h4>Reservation Management</h4>
+            Id to remove:
+            <input type="text" id="removeId" name="removeId" maxlength="9" />
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="removeIdFunc()"
+            >
+              Cancel reservation
+            </button>
+            <br /><br />
+            <button
+              type="button"
+              class="btn-secondary"
+              onclick="getAllReservations()"
+            >
+              Show All Reservations
+            </button>
+            <br /><br />
+            <p id="res"></p>
+          </div>
+        </div>
+
+        <div id="page-reservation" class="page-section hidden">
+          <button class="btn-secondary" onclick="goBackToPersonal()">
+            << Back
+          </button>
+
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr valign="top">
+              <td width="65%">
+                <table border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td colspan="2">
+                      <h4>Court Details:</h4>
+                    </td>
+                  </tr>
+
+                  <form id="CourtF">
+                    <tr id="trMaps">
+                      <td>City:</td>
+                      <td>
+                        <select
+                          id="city"
+                          onchange="handleCityChange(this.value)"
+                        >
+                          <option value="">Select a city...</option>
+                          <option value="Mazraa">Mazraa</option>
+                          <option value="Furedes">Furedes</option>
+                          <option value="Sakhnin">Sakhnin</option>
+                          <option value="Deir el Asad">Deir el Asad</option>
+                          <option value="Karmiel">Karmiel</option>
+                          <option value="Acre">Acre</option>
+                          <option value="Nahariya">Nahariya</option>
+                          <option value="Haifa">Haifa</option>
+                        </select>
+                      </td>
+                      <td>
+                        <p id="location"></p>
+                        <iframe
+                          id="Maps"
+                          src=""
+                          allowfullscreen=""
+                          loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                        <h3 id="weather-result"></h3>
+                      </td>
+                    </tr>
+                  </form>
+                  <tr>
+                    <td colspan="2">
+                      <h4>Dates:</h4>
+                    </td>
+                  </tr>
+
+                  <form id="DatesF">
+                    <tr>
+                      <td><label>Date:</label></td>
+                      <td><input type="date" id="schedule-date" /></td>
+                    </tr>
+                    <tr>
+                      <td><label>Time From:</label></td>
+                      <td>
+                        <input
+                          type="time"
+                          id="alarm-timeF"
+                          min="0"
+                          max="23"
+                          value="00"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><label>To:</label></td>
+                      <td><input type="time" id="alarm-timeT" /></td>
+                    </tr>
+                  </form>
+                </table>
+
+                <textarea
+                  id="Notes"
+                  placeholder="Enter your notes"
+                  rows="3"
+                  cols="30"
+                ></textarea>
+
+                <button
+                  type="button"
+                  class="btn-primary"
+                  onclick="validateAndPay()"
+                >
+                  Proceed to Payment
+                </button>
+              </td>
+
+              <td width="35%">
+                <div id="Pick">
+                  <h4>Pick a Court:</h4>
+                  <table border="0" cellspacing="5">
+                    <tr>
+                      <td>
+                        <input
+                          type="radio"
+                          name="sport"
+                          value="football"
+                          onclick="changeSite('https://www.soccersport.co.il')"
+                        />
+                      </td>
+                      <td>Football -> 300₪/hr</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="radio"
+                          name="sport"
+                          value="basketball"
+                          onclick="changeSite('https://www.sportcom.co.il/category/ציוד-כדורסל')"
+                        />
+                      </td>
+                      <td>Basketball -> 240₪/hr</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="radio"
+                          name="sport"
+                          value="VallyBall"
+                          onclick="changeSite('https://www.msport.co.il/73060-כדורים/122134')"
+                        />
+                      </td>
+                      <td>Volleyball -> 180₪/hr</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input
+                          type="radio"
+                          name="sport"
+                          value="Tennis"
+                          onclick="changeSite('https://www.lotems.co.il')"
+                        />
+                      </td>
+                      <td>Tennis -> 120₪/hr</td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="page-confirmation" class="page-section hidden">
+          <h1>Booking Confirmed!</h1>
+          <h2>A confirmation email has been sent to your inbox.</h2>
+          <h3>Thank you for using Sports Arena.</h3>
+          <hr />
+          <div id="final-summary"></div>
+          <button class="btn-secondary" onclick="location.reload()">
+            Book Another Court
+          </button>
+        </div>
+
+        <dialog id="paymentModal">
+          <h3>Enter Card Details</h3>
+          <form method="dialog">
+            <input
+              id="CardNum"
+              type="text"
+              placeholder="Card Number"
+              maxlength="16"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              required
+            />
+            <input id="DateMonth" type="month" />
+            <input
+              id="CVV"
+              type="text"
+              placeholder="CVV"
+              maxlength="3"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+            <span id="price"></span>
+            <button class="btn-pay" type="button" onclick="finalizePayment()">
+              Confirm Payment
+            </button>
+            <button
+              class="btn-close"
+              type="button"
+              onclick="closePaymentWindow()"
+            >
+              Cancel
+            </button>
+          </form>
+        </dialog>
+
+        <dialog id="notificationModal">
+          <h3 id="Error">Error!</h3>
+          <p id="notificationMessage"></p>
+          <button onclick="closeNotificationWindow()">Dismiss</button>
+        </dialog>
+
+        <dialog id="successModal">
+          <h3 id="success">Success!</h3>
+          <p id="successMessage"></p>
+          <button class="c-click" onclick="closeSuccessWindow()">Close</button>
+        </dialog>
+      </div>
     </div>
-</body>
+  </body>
 </html>
