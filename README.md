@@ -76,7 +76,7 @@ The project follows a strict **Separation of Concerns** to ensure maintainabilit
 
 **Planned Improvements**:
 - [ ] Replace iframes with real API integrations (OpenWeather, Google Maps API).
-- [ ] Implement a backend (SQL or NoSQL) for persistent data.
+- [ ] Implement a backend (MongoDB) for persistent data.
 - [ ] Integrate a real payment gateway (Stripe or PayPal).
 - [ ] Add user authentication and an Admin Dashboard.
 
