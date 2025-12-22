@@ -83,8 +83,8 @@ The project follows a strict **Separation of Concerns** to ensure maintainabilit
 ---
 
 ## 👥 Team Members
-* **Rouhi Basheer**
-* **Diaa Al Din**
+* **Rohi Basheer**
+* **Diaa Al Din abo alheja**
 * **Amir Sanallah**
 * **Mohammed Shalata**
 
