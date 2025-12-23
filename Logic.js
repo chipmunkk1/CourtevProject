@@ -20,10 +20,16 @@ function handlePersonalStep() {
 
   // 🔥 Email Validation Regex (Checks for @ and dot)
   var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-
+  // Open Admin Page
   if (id == "123456789") {
     showAdmin();
-  } else {
+
+    //Open Admin Test
+  } else if (id == "000000000") {
+    goToReservation();
+  }
+  //Chek as regular
+  else {
     if (
       fname == "" &&
       lname == "" &&
