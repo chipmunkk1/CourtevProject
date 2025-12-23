@@ -34,19 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
   minWidth: 200.00,
   scale: 1.00,
   scaleMobile: 1.00,
-  color: 0x3feaff,
-  backgroundColor: 0x638b80  });
+  color: 0x12c9ed,
+  backgroundColor: 0x154045,
+  points: 5.00 });
 });
-    /*mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.0,
-    minWidth: 200.0,
-    scale: 1.0,
-    scaleMobile: 1.0,
-    backgroundColor: 0xcacaca,
-  });
-});*/
+
 
 /* ============================================================================
    Page Navigation Functions
