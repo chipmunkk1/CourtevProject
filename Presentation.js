@@ -25,9 +25,19 @@ window.addEventListener("load", function () {
 
 // Initialize the VANTA Globe background effect
 document.addEventListener("DOMContentLoaded", () => {
-  VANTA.GLOBE({
+  VANTA.NET({
     el: "#vanta-bg",
-    mouseControls: true,
+  mouseControls: false,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  color: 0x3feaff,
+  backgroundColor: 0x638b80  });
+});
+    /*mouseControls: true,
     touchControls: true,
     gyroControls: false,
     minHeight: 200.0,
@@ -36,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     scaleMobile: 1.0,
     backgroundColor: 0xcacaca,
   });
-});
+});*/
 
 /* ============================================================================
    Page Navigation Functions
