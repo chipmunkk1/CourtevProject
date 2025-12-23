@@ -1,13 +1,22 @@
 <!DOCTYPE html>
+<!-- =========================================================
+     Main HTML Document for Courtev – Sports Arena Reservation
+     ========================================================= -->
 <html>
   <head>
+    <!-- Page title shown in browser tab -->
     <title>Courtev</title>
+
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="Courtev.css" />
 
+    <!-- EmailJS library for sending confirmation emails -->
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
     ></script>
+
+    <!-- EmailJS initialization with public key -->
     <script type="text/javascript">
       (function () {
         // Your actual Public Key
@@ -15,29 +24,42 @@
       })();
     </script>
 
+    <!-- Application logic and data handling scripts -->
     <script src="DataAccess.js"></script>
     <script src="Logic.js"></script>
+
+    <!-- Three.js and Vanta.js for animated globe background -->
     <script src="three.r134.min.js"></script>
     <script src="vanta.globe.min.js"></script>
+
+    <!-- Presentation and UI-related logic -->
     <script src="Presentation.js"></script>
   </head>
 
   <body>
+    <!-- Hidden iframe used for external site navigation -->
     <iframe id="Frame" src="" frameborder="0"></iframe>
 
+    <!-- Split screen loading animation -->
     <div id="split-loader">
       <div class="half left-half"></div>
       <div class="half right-half"></div>
     </div>
 
+    <!-- Main application container -->
     <div id="main-content">
+      <!-- Animated Vanta background -->
       <div id="vanta-bg"></div>
+
+      <!-- Central content area -->
       <div id="content-area">
+        <!-- Global header with logo and welcome message -->
         <div id="global-header">
           <img id="logo" src="logo.png" />
           <h2>Welcome to the Sports Arena!</h2>
         </div>
 
+        <!-- ================= Personal Details Page ================= -->
         <div id="page-personal" class="page-section">
           <table id="Content-Table" border="0">
             <tr>
@@ -46,6 +68,7 @@
               </td>
             </tr>
 
+            <!-- Personal details form -->
             <form id="PersonalF">
               <tr>
                 <td>First name:</td>
@@ -83,6 +106,7 @@
             </form>
           </table>
 
+          <!-- Proceed to reservation step -->
           <center>
             <button class="btn-primary" onclick="handlePersonalStep()">
               Next: Choose Court >>
@@ -90,31 +114,32 @@
           </center>
 
           <hr />
-
-          <div>
-            <h4>Reservation Management</h4>
-            Id to remove:
-            <input type="text" id="removeId" name="removeId" maxlength="9" />
-            <button
-              type="button"
-              class="btn-secondary"
-              onclick="removeIdFunc()"
-            >
-              Cancel reservation
-            </button>
-            <br /><br />
-            <button
-              type="button"
-              class="btn-secondary"
-              onclick="getAllReservations()"
-            >
-              Show All Reservations
-            </button>
-            <br /><br />
-            <p id="res"></p>
-          </div>
         </div>
 
+        <!-- ================= Admin Control Panel ================= -->
+        <div id="AdminC" class="Admin-Control hidden">
+          <button class="btn-secondary" onclick="goBackToPersonal()">
+            << Back
+          </button>
+          <h4>Reservation Management</h4>
+          Id to remove:
+          <input type="text" id="removeId" name="removeId" maxlength="9" />
+          <button type="button" class="btn-secondary" onclick="removeIdFunc()">
+            Cancel reservation
+          </button>
+          <br /><br />
+          <button
+            type="button"
+            class="btn-secondary"
+            onclick="getAllReservations()"
+          >
+            Show All Reservations
+          </button>
+          <br /><br />
+          <p id="res"></p>
+        </div>
+
+        <!-- ================= Reservation Page ================= -->
         <div id="page-reservation" class="page-section hidden">
           <button class="btn-secondary" onclick="goBackToPersonal()">
             << Back
@@ -122,6 +147,7 @@
 
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr valign="top">
+              <!-- Left side: reservation details -->
               <td width="65%">
                 <table border="0" cellpadding="5" cellspacing="0">
                   <tr>
@@ -130,6 +156,7 @@
                     </td>
                   </tr>
 
+                  <!-- Court selection form -->
                   <form id="CourtF">
                     <tr id="trMaps">
                       <td>City:</td>
@@ -149,6 +176,7 @@
                           <option value="Haifa">Haifa</option>
                         </select>
                       </td>
+                      <!-- Location map and weather info -->
                       <td>
                         <p id="location"></p>
                         <iframe
@@ -162,12 +190,14 @@
                       </td>
                     </tr>
                   </form>
+
                   <tr>
                     <td colspan="2">
                       <h4>Dates:</h4>
                     </td>
                   </tr>
 
+                  <!-- Date and time selection form -->
                   <form id="DatesF">
                     <tr>
                       <td><label>Date:</label></td>
@@ -192,14 +222,17 @@
                   </form>
                 </table>
 
+                <!-- Additional user notes -->
                 <textarea
                   id="Notes"
+                  maxlength="90"
                   placeholder="Enter your notes"
                   rows="3"
                   cols="30"
                   maxlength="100"
                 ></textarea>
 
+                <!-- Proceed to payment -->
                 <button
                   type="button"
                   class="btn-primary"
@@ -209,6 +242,7 @@
                 </button>
               </td>
 
+              <!-- Right side: sport selection -->
               <td width="35%">
                 <div id="Pick">
                   <h4>Pick a Court:</h4>
@@ -264,6 +298,7 @@
           </table>
         </div>
 
+        <!-- ================= Confirmation Page ================= -->
         <div id="page-confirmation" class="page-section hidden">
           <h1>Booking Confirmed!</h1>
           <h2>A confirmation email has been sent to your inbox.</h2>
@@ -275,6 +310,7 @@
           </button>
         </div>
 
+        <!-- ================= Payment Modal ================= -->
         <dialog id="paymentModal">
           <h3>Enter Card Details</h3>
           <form method="dialog">
@@ -308,12 +344,14 @@
           </form>
         </dialog>
 
+        <!-- ================= Error Notification Modal ================= -->
         <dialog id="notificationModal">
           <h3 id="Error">Error!</h3>
           <p id="notificationMessage"></p>
           <button onclick="closeNotificationWindow()">Dismiss</button>
         </dialog>
 
+        <!-- ================= Success Notification Modal ================= -->
         <dialog id="successModal">
           <h3 id="success">Success!</h3>
           <p id="successMessage"></p>

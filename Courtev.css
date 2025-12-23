@@ -282,10 +282,39 @@ dialog::backdrop {
 }
 
 /** Reservation results display area */
+#AdminC {
+  background-color: white;
+  width: 400px;
+  margin: 50px auto; /* Centers the box */
+  padding: 30px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Nice shadow effect */
+  text-align: center;
+}
+
+#AdminC h4 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#removeId {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* --------------------------------------------------------
+   SCROLLABLE LIST
+   --------------------------------------------------------
+*/
 #res {
+  margin-top: 20px;
   text-align: left;
-  max-height: 200px;
-  overflow-y: auto;
+  background-color: #f1f1f1; /* Light gray background */
+  padding: 15px;
+  border-radius: 5px;
+  max-height: 200px; /* Limit height */
+  overflow-y: auto; /* Scroll if too long */
 }
 
 /** Reservation page main table styling */

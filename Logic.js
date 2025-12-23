@@ -21,52 +21,56 @@ function handlePersonalStep() {
   // 🔥 Email Validation Regex (Checks for @ and dot)
   var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
-  if (
-    fname == "" &&
-    lname == "" &&
-    email == "" &&
-    pnumber == "" &&
-    id == "" &&
-    address == ""
-  ) {
-    showMessage("Please enter your details to continue");
-    return;
-  }
+  if (id == "123456789") {
+    showAdmin();
+  } else {
+    if (
+      fname == "" &&
+      lname == "" &&
+      email == "" &&
+      pnumber == "" &&
+      id == "" &&
+      address == ""
+    ) {
+      showMessage("Please enter your details to continue");
+      return;
+    }
 
-  if (fname == "" || fname.length < 2 || !nameRegex.test(fname)) {
-    showMessage("Invalid first name (at least 2 letters)");
-    return;
-  }
-  if (lname == "" || lname.length < 2 || !nameRegex.test(lname)) {
-    showMessage("Invalid last name (at least 2 letters)");
-    return;
-  }
+    if (fname == "" || fname.length < 2 || !nameRegex.test(fname)) {
+      showMessage("Invalid first name (at least 2 letters)");
+      return;
+    }
+    if (lname == "" || lname.length < 2 || !nameRegex.test(lname)) {
+      showMessage("Invalid last name (at least 2 letters)");
+      return;
+    }
 
-  // 🔥🔥 Validate Email 🔥🔥
-  if (email == "") {
-    showMessage("Please enter your email address.");
-    return;
-  }
-  if (!emailRegex.test(email)) {
-    showMessage("Invalid email format! It must contain '@' and a '.' (dot).");
-    return;
-  }
+    // 🔥🔥 Validate Email 🔥🔥
+    if (email == "") {
+      showMessage("Please enter your email address.");
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      showMessage("Invalid email format! It must contain '@' and a '.' (dot).");
+      return;
+    }
 
-  if (!phoneRegex.test(pnumber)) {
-    showMessage("Invalid phone number (10 digits)");
-    return;
-  }
-  if (!idRegex.test(id)) {
-    showMessage("Invalid ID (9 digits)");
-    return;
-  }
-  if (address.length < 5) {
-    showMessage("Invalid address (min 5 chars)");
-    return;
-  }
+    if (!phoneRegex.test(pnumber)) {
+      showMessage("Invalid phone number (10 digits)");
+      return;
+    }
+    if (!idRegex.test(id)) {
+      showMessage("Invalid ID (9 digits)");
+      return;
+    }
+    if (address.length < 5) {
+      showMessage("Invalid address (min 5 chars)");
+      return;
+    }
 
-  // Call presentation function to switch pages
-  goToReservation();
+    // Call presentation function to switch pages
+    goToReservation();
+  }
 }
 
 // ------------------------------------------------------------------------------------
@@ -304,12 +308,12 @@ function getAllReservations() {
     textPrint += "<b>ID:</b> " + client[0] + "</br>";
     textPrint += "<b>Name:</b> " + fullName + "</br>";
     textPrint += "<b>Email:</b> " + client[11] + "</br>"; // Showing Email
-    textPrint += "<b>Court:</b> " + client[7] + "</br>";
-    textPrint += "<b>City:</b> " + client[6] + "</br>";
-    textPrint += "<b>Date:</b> " + client[8] + "</br>";
-    textPrint += "<b>Time:</b> " + client[9] + " - " + client[10] + "</br>";
-    textPrint += "<b>Notice:</b> " + client[12] + "</br>"; // Updated index
-    textPrint += "<b>Phone:</b> " + client[4] + "<hr>"; // Updated index
+    textPrint += "<b>Court:</b> " + client[6] + "</br>";
+    textPrint += "<b>City:</b> " + client[5] + "</br>";
+    textPrint += "<b>Date:</b> " + client[7] + "</br>";
+    textPrint += "<b>Time:</b> " + client[8] + " - " + client[9] + "</br>";
+    textPrint += "<b>Notice:</b> " + client[10] + "</br>"; // Updated index
+    textPrint += "<b>Phone:</b> " + client[3] + "<hr>"; // Updated index
   }
 
   if (textPrint == "") textPrint = "No reservations found.";

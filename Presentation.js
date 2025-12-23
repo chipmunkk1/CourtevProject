@@ -48,10 +48,15 @@ function goToReservation() {
   document.getElementById("page-personal").classList.add("hidden");
   document.getElementById("page-reservation").classList.remove("hidden");
 }
-
+function showAdmin() {
+  document.getElementById("page-personal").classList.add("hidden");
+  document.getElementById("AdminC").classList.remove("hidden");
+}
 // Switch from Page 2 back to Page 1
 function goBackToPersonal() {
   document.getElementById("page-reservation").classList.add("hidden");
+  document.getElementById("AdminC").classList.add("hidden");
+
   document.getElementById("page-personal").classList.remove("hidden");
   document.getElementById("Frame").style.display = "none"; // Hide iframe
 }
