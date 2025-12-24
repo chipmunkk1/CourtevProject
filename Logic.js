@@ -7,7 +7,7 @@ function handlePersonalStep() {
   var fname = document.getElementById("fname").value.trim();
   var lname = document.getElementById("lname").value.trim();
 
-  // 🔥 Get Email Value
+  //  Get Email Value
   var email = document.getElementById("uEmail").value.trim();
 
   var pnumber = document.getElementById("PNumber").value.trim();
@@ -18,7 +18,7 @@ function handlePersonalStep() {
   var idRegex = /^[0-9]{9}$/;
   var phoneRegex = /^[0-9]{10}$/;
 
-  // 🔥 Email Validation Regex (Checks for @ and dot)
+  //  Email Validation Regex (Checks for @ and dot)
   var emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
   // Open Admin Page
   if (id == "123456789") {
@@ -51,7 +51,7 @@ function handlePersonalStep() {
       return;
     }
 
-    // 🔥🔥 Validate Email 🔥🔥
+    //  Validate Email 
     if (email == "") {
       showMessage("Please enter your email address.");
       return;
@@ -197,7 +197,7 @@ function finalizePayment() {
   var fname = document.getElementById("fname").value;
   var lname = document.getElementById("lname").value;
 
-  // 🔥 Get Email
+  //  Get Email
   var email = document.getElementById("uEmail").value;
 
   var pnumber = document.getElementById("PNumber").value;
@@ -243,7 +243,7 @@ function finalizePayment() {
     notice
   );
 
-  // --- 4. 🔥 AUTOMATIC EMAIL SAAS (Send to Manager) 🔥 ---
+  // --- 4.  AUTOMATIC EMAIL SAAS (Send to Manager)  ---
   var templateParams = {
     fname: fname,
     lname: lname,

@@ -1,57 +1,20 @@
 // Data Access Tier - logic related to the data access tier
 
 // Save reservation info to localStorage
-function processInfo(
-  id,
-  fname,
-  lname,
-  email,
-  pnumber,
-  address,
-  courtCity,
-  selectedItem,
-  date,
-  timeFrom,
-  timeTo,
-  notice
-) {
-  // 🔥 Added email to the parameters
-  var dbString = stringify(
-    id,
-    fname,
-    lname,
-    email,
-    pnumber,
-    address,
-    courtCity,
-    selectedItem,
-    date,
-    timeFrom,
-    timeTo,
-    notice
-  );
+function processInfo(id,fname,lname,email,pnumber,address,courtCity,selectedItem,date,timeFrom,timeTo,notice)
+ {
+  //  Added email to the parameters
+  var dbString = stringify(id,fname,lname,email,pnumber,address,courtCity,selectedItem,date,timeFrom,timeTo,notice);
   localStorage.setItem(id, dbString);
 }
 
 // Convert reservation info into a string format for storage
-function stringify(
-  id,
-  fname,
-  lname,
-  email,
-  pnumber,
-  address,
-  courtCity,
-  selectedItem,
-  date,
-  timeFrom,
-  timeTo,
-  notice
-) {
+function stringify(id,fname,lname,email,pnumber,address,courtCity,selectedItem,date,timeFrom,timeTo,notice)
+ {
   var nameStr = "name: " + fname;
   var lastNameStr = "lastName: " + lname;
 
-  // 🔥 Saving Email
+  //  Saving Email
   var emailStr = "email: " + email;
 
   var pnumber = "phone-number: " + pnumber;
@@ -64,30 +27,8 @@ function stringify(
   var notice = "notice: " + notice;
 
   // Combine all fields into a single string (Inserted Email between Last Name and Phone)
-  var dbStr =
-    "{" +
-    nameStr +
-    "," +
-    lastNameStr +
-    "," +
-    emailStr +
-    "," +
-    pnumber +
-    "," +
-    addrStr +
-    "," +
-    courtCity +
-    "," +
-    court +
-    "," +
-    date +
-    "," +
-    timeFrom +
-    "," +
-    timeTo +
-    "," +
-    notice +
-    "}";
+  var dbStr = "{" + nameStr + "," + lastNameStr + "," + emailStr + "," + pnumber + "," + addrStr + "," +
+                   courtCity + "," + court + "," + date + "," + timeFrom + "," + timeTo + "," + notice + "}";
   return dbStr;
 }
 
@@ -110,7 +51,7 @@ function getBookersDb() {
     tmpClient[9] = getTimeTo(clientInfo); // end time
     tmpClient[10] = getNotice(clientInfo); // notice
 
-    // 🔥 Get Email
+    //  Get Email
     tmpClient[11] = getEmail(clientInfo);
 
     clients[i] = tmpClient;
@@ -133,7 +74,7 @@ function getLastName(clientInfo) {
   return clientInfo.substring(lastNameIndex, endLastNameIndex);
 }
 
-// 🔥 Extract Email (New Function)
+//  Extract Email (New Function)
 function getEmail(clientInfo) {
   var emailIndex = clientInfo.indexOf("email:") + 7;
   var endEmailIndex = clientInfo.indexOf(",phone-number:");
