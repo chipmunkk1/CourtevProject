@@ -51,7 +51,7 @@ function handlePersonalStep() {
       return;
     }
 
-    //  Validate Email 
+    //  Validate Email
     if (email == "") {
       showMessage("Please enter your email address.");
       return;
@@ -261,14 +261,7 @@ function finalizePayment() {
   };
 
   // Using your specific IDs
-  emailjs.send("service_mp452qp", "template_96nig2a", templateParams).then(
-    function (response) {
-      console.log("SUCCESS! Admin Notified.", response.status, response.text);
-    },
-    function (error) {
-      console.log("FAILED to send email...", error);
-    }
-  );
+  emailjs.send("service_mp452qp", "template_96nig2a", templateParams);
 
   // --- 5. CLOSE UI ---
   closePaymentWindow();

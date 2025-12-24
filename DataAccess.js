@@ -1,16 +1,53 @@
 // Data Access Tier - logic related to the data access tier
 
 // Save reservation info to localStorage
-function processInfo(id,fname,lname,email,pnumber,address,courtCity,selectedItem,date,timeFrom,timeTo,notice)
- {
+function processInfo(
+  id,
+  fname,
+  lname,
+  email,
+  pnumber,
+  address,
+  courtCity,
+  selectedItem,
+  date,
+  timeFrom,
+  timeTo,
+  notice
+) {
   //  Added email to the parameters
-  var dbString = stringify(id,fname,lname,email,pnumber,address,courtCity,selectedItem,date,timeFrom,timeTo,notice);
+  var dbString = stringify(
+    id,
+    fname,
+    lname,
+    email,
+    pnumber,
+    address,
+    courtCity,
+    selectedItem,
+    date,
+    timeFrom,
+    timeTo,
+    notice
+  );
   localStorage.setItem(id, dbString);
 }
 
 // Convert reservation info into a string format for storage
-function stringify(id,fname,lname,email,pnumber,address,courtCity,selectedItem,date,timeFrom,timeTo,notice)
- {
+function stringify(
+  id,
+  fname,
+  lname,
+  email,
+  pnumber,
+  address,
+  courtCity,
+  selectedItem,
+  date,
+  timeFrom,
+  timeTo,
+  notice
+) {
   var nameStr = "name: " + fname;
   var lastNameStr = "lastName: " + lname;
 
@@ -27,8 +64,30 @@ function stringify(id,fname,lname,email,pnumber,address,courtCity,selectedItem,d
   var notice = "notice: " + notice;
 
   // Combine all fields into a single string (Inserted Email between Last Name and Phone)
-  var dbStr = "{" + nameStr + "," + lastNameStr + "," + emailStr + "," + pnumber + "," + addrStr + "," +
-                   courtCity + "," + court + "," + date + "," + timeFrom + "," + timeTo + "," + notice + "}";
+  var dbStr =
+    "{" +
+    nameStr +
+    "," +
+    lastNameStr +
+    "," +
+    emailStr +
+    "," +
+    pnumber +
+    "," +
+    addrStr +
+    "," +
+    courtCity +
+    "," +
+    court +
+    "," +
+    date +
+    "," +
+    timeFrom +
+    "," +
+    timeTo +
+    "," +
+    notice +
+    "}";
   return dbStr;
 }
 
@@ -157,23 +216,18 @@ function removeIdFromDb(id) {
       user_email: getEmail(iformation), // Sending user's email to admin
     };
 
-    emailjs.send("service_mp452qp", "template_52n6cq8", templateParams).then(
-      function (response) {
-        console.log(
-          "SUCCESS! reversation canceled .",
-          response.status,
-          response.text
-        );
-      },
-      function (error) {
-        console.log("FAILED to send email...", error);
-      }
-    );
+    // 1. Send Email (Fire and Forget - no waiting)
+    emailjs.send("service_mp452qp", "template_52n6cq8", templateParams);
 
+    // 2. Remove from DB immediately
     localStorage.removeItem(id);
+
+    // 3. Print Success Message immediately
     showSuccessMessage(
       "Success! Your reservation has been cancelled. A cancellation email was sent to you."
     );
     getAllReservations();
-  } else showMessage("No reservation found for this ID !!");
+  } else {
+    showMessage("No reservation found for this ID !!");
+  }
 }
