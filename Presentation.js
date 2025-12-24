@@ -27,18 +27,18 @@ window.addEventListener("load", function () {
 document.addEventListener("DOMContentLoaded", () => {
   VANTA.NET({
     el: "#vanta-bg",
-  mouseControls: false,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0x12c9ed,
-  backgroundColor: 0x154045,
-  points: 5.00 });
+    mouseControls: false,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.0,
+    minWidth: 200.0,
+    scale: 1.0,
+    scaleMobile: 1.0,
+    color: 0x12c9ed,
+    backgroundColor: 0x154045,
+    points: 5.0,
+  });
 });
-
 
 /* ============================================================================
    Page Navigation Functions

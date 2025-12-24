@@ -227,7 +227,7 @@ dialog::backdrop {
  * including logo display and title positioning.
  */
 #global-header {
-  color:aliceblue;
+  color: aliceblue;
   display: flex;
   flex-direction: column;
   align-items: center;
