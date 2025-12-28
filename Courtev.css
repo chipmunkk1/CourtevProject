@@ -260,7 +260,7 @@ dialog::backdrop {
   left: 70%;
   width: 700px;
   height: 400px;
-  transform: translate(-40%, -40%);
+  transform: translate(-10%, -10%);
   z-index: 9999;
   display: none;
   border: 5px solid white;
